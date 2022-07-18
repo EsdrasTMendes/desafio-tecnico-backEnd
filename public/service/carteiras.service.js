@@ -12,11 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const connection_1 = __importDefault(require("./connection"));
+const carteiras_model_1 = __importDefault(require("../models/carteiras.model"));
 const getAllWallets = () => __awaiter(void 0, void 0, void 0, function* () {
-    const [result] = yield connection_1.default.execute(`SELECT id AS carteiraId, cliente_id AS clienteId, ativo_id AS ativoId,
-    qtd_ativo_custodia AS qtdAtivoCustodia, corretora_id AS corretoraId FROM 
-    StockmarketXP.carteiras`);
+    const result = yield carteiras_model_1.default.getAllWallets();
     return result;
 });
 exports.default = {
