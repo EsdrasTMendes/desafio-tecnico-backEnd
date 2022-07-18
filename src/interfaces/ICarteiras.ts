@@ -1,8 +1,8 @@
 interface ICarteiras {
-  carteiraId: number,
+  carteiraId?: number,
   clienteId: number,
   ativoId:number,
-  qtdAtivoCustodia: number,
+  qtdAtivo: number,
   corretoraId: number,
 }
 

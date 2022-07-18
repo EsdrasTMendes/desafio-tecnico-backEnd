@@ -1,5 +1,6 @@
 import connection from "./connection";
 import ICarteiras from "../interfaces/ICarteiras";
+import { ResultSetHeader } from "mysql2";
 
 
 const getAllWallets = async (): Promise<ICarteiras[]> => {
@@ -11,6 +12,15 @@ const getAllWallets = async (): Promise<ICarteiras[]> => {
   return result as ICarteiras[];
 };
 
+const createNewWallet = async (obj:ICarteiras): Promise<ResultSetHeader> => {
+  const [rows] = await connection.execute(
+    'INSERT INTO StockmarketXP.carteiras VALUES(cliente_id, ativo_id, qtd_ativo, corretora_id) (?,?,?,?)',
+    [obj.clienteId, obj.clienteId, obj.qtdAtivo, obj.corretoraId]
+  )
+  return rows as ResultSetHeader;
+};
+
 export default {
   getAllWallets,
+  createNewWallet,
 }
