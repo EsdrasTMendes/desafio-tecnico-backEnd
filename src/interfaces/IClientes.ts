@@ -2,7 +2,7 @@ interface IClientes {
   clienteId: number, 
   nomeCliente: string,
   codCliente: number,
-  saldoCliente: number, 
+  saldoConta: number, 
   saldoCustodia: number,
   corretoraId: number,
 }

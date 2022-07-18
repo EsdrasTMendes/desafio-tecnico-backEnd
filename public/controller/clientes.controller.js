@@ -12,12 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const connection_1 = __importDefault(require("./connection"));
-const getAllClients = () => __awaiter(void 0, void 0, void 0, function* () {
-    const [result] = yield connection_1.default.execute(`SELECT cliente_id AS clienteId, nome_cliente AS nomeCliente, cod_cliente AS codCliente,
-    saldo_conta AS saldoConta, saldo_custodia AS saldoCustodia, corretora_id AS corretoraId FROM 
-    StockmarketXP.clientes`);
-    return result;
+const clientes_service_1 = __importDefault(require("../service/clientes.service"));
+const getAllClients = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const clients = yield clientes_service_1.default.getAllClients();
+    return res.status(200).json(clients);
 });
 exports.default = {
     getAllClients,
