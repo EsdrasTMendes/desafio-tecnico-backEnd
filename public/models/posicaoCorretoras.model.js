@@ -18,6 +18,12 @@ const getAllPositions = () => __awaiter(void 0, void 0, void 0, function* () {
     FROM StockmarketXP.posicao_corretoras`);
     return result;
 });
+const getPositionsByStockAndBroker = (ativoId, corretoraId) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`SELECT corretora_id AS corretoraId, ativo_id AS ativoId, qtd_disponivel AS qtdDisponivel
+    FROM StockmarketXP.posicao_corretoras WHERE corretora_id = ? AND ativoId = ?`, [ativoId, corretoraId]);
+    return result;
+});
 exports.default = {
     getAllPositions,
+    getPositionsByStockAndBroker
 };

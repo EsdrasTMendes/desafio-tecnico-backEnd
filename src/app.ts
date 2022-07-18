@@ -1,15 +1,13 @@
 import express from "express";
 import { Request, Response } from "express";
 import acoesRouters from './routers/acoes.router';
-import carteirasRouters from './routers/carteiras.router';
+import investimentosRouters from './routers/investimentos.router';
 import clientesRouters from './routers/clientes.router';
-import corretorasRouters from './routers/corretoras.router';
-import posicaoCorretorasRouters from './routers/posicaoCorretoras.router';
 
 const app = express();
 const port = 3000;
 app.use(express.json())
-app.use(acoesRouters,carteirasRouters,clientesRouters, corretorasRouters, posicaoCorretorasRouters)
+app.use(acoesRouters,investimentosRouters,clientesRouters)
 app.get('/', (req: Request, res: Response): Response => {
   return res.send('Inicio do desafio Técnico');
 });

@@ -19,6 +19,13 @@ const getAllClients = () => __awaiter(void 0, void 0, void 0, function* () {
     StockmarketXP.clientes`);
     return result;
 });
+const getClientsByCode = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`SELECT cliente_id AS clienteId, nome_cliente AS nomeCliente, cod_cliente AS codCliente,
+    saldo_conta AS saldoConta, saldo_custodia AS saldoCustodia, corretora_id AS corretoraId FROM 
+    StockmarketXP.clientes WHERE cod_cliente = ?`, [codCliente]);
+    return result;
+});
 exports.default = {
     getAllClients,
+    getClientsByCode,
 };

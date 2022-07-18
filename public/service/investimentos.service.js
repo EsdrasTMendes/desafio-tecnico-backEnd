@@ -12,11 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const carteiras_service_1 = __importDefault(require("../service/carteiras.service"));
-const getAllWallets = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const wallets = yield carteiras_service_1.default.getAllWallets();
-    return res.status(200).json(wallets);
+const investimentos_model_1 = __importDefault(require("../models/investimentos.model"));
+const getAllInvestiments = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield investimentos_model_1.default.getAllInvestiments();
+    return result;
 });
 exports.default = {
-    getAllWallets
+    getAllInvestiments,
 };

@@ -1,6 +1,6 @@
 interface IAcoes {
-  ativoId: number;
-  codAtivo: string;
+  codAtivo: number;
+  codMercado: string;
   valorAtivo: number;
 }
 
