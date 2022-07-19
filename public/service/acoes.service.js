@@ -17,6 +17,11 @@ const getAllStocks = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield acoes_model_1.default.getAllStocks();
     return result;
 });
+const getStockByCode = (codAtivo) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield acoes_model_1.default.getStockByCode(codAtivo);
+    return result;
+});
 exports.default = {
     getAllStocks,
+    getStockByCode,
 };

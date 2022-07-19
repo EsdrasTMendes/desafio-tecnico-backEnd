@@ -6,6 +6,12 @@ const getAllStocks = async (): Promise<IAcoes[]> => {
   return result
 };
 
+const getStockByCode = async (codAtivo: number): Promise<IAcoes> => {
+  const [result] = await model.getStockByCode(codAtivo);
+  return result;
+}
+
 export default {
   getAllStocks,
+  getStockByCode,
 }

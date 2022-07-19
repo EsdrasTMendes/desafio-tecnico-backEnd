@@ -6,6 +6,13 @@ const getAllStocks = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json(stocks);
 };
 
+const getStockByCode = async (req: Request, res: Response): Promise<Response> => {
+  const {code} = (req.params);
+  const stock = await service.getStockByCode(+code);
+  return res.status(200).json(stock);
+};
+
 export default {
-  getAllStocks
+  getAllStocks,
+  getStockByCode
 }

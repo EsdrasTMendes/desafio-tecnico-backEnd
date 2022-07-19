@@ -17,6 +17,11 @@ const getAllClients = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield clientes_model_1.default.getAllClients();
     return result;
 });
+const getClientByCode = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
+    const [client] = yield clientes_model_1.default.getClientsByCode(codCliente);
+    return client;
+});
 exports.default = {
     getAllClients,
+    getClientByCode,
 };

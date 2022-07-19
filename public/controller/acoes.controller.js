@@ -17,6 +17,12 @@ const getAllStocks = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const stocks = yield acoes_service_1.default.getAllStocks();
     return res.status(200).json(stocks);
 });
+const getStockByCode = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { code } = (req.params);
+    const stock = yield acoes_service_1.default.getStockByCode(+code);
+    return res.status(200).json(stock);
+});
 exports.default = {
-    getAllStocks
+    getAllStocks,
+    getStockByCode
 };

@@ -4,21 +4,19 @@ import IClientes from "../interfaces/IClientes";
 
 const getAllClients = async (): Promise<IClientes[]> => {
   const [result] = await connection.execute(
-    `SELECT cliente_id AS clienteId, nome_cliente AS nomeCliente, cod_cliente AS codCliente,
-    saldo_conta AS saldoConta, saldo_custodia AS saldoCustodia, corretora_id AS corretoraId FROM 
-    StockmarketXP.clientes`,
+    `SELECT cod_cliente AS codCliente, nome_cliente AS nomeCliente, saldo_conta AS saldoConta,
+    saldo_custodia AS saldoCustodia FROM StockmarketXP.clientes`,
   )
   return result as IClientes[];
 };
 
-const getClientsByCode = async (codCliente: number): Promise<{}> => {
+const getClientsByCode = async (codCliente: number): Promise<IClientes[]> => {
   const [result] = await connection.execute(
-    `SELECT cliente_id AS clienteId, nome_cliente AS nomeCliente, cod_cliente AS codCliente,
-    saldo_conta AS saldoConta, saldo_custodia AS saldoCustodia, corretora_id AS corretoraId FROM 
-    StockmarketXP.clientes WHERE cod_cliente = ?`,
+    `SELECT cod_cliente AS codCliente, nome_cliente AS nomeCliente, saldo_conta AS saldoConta,
+    saldo_custodia AS saldoCustodia FROM StockmarketXP.clientes WHERE cod_cliente = ?`,
     [codCliente]
   );
-  return result
+  return result as IClientes[]
 };
 
 export default {

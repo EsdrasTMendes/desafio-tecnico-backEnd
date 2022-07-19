@@ -7,4 +7,5 @@ const express_1 = require("express");
 const clientes_controller_1 = __importDefault(require("../controller/clientes.controller"));
 const routers = (0, express_1.Router)();
 routers.get('/clientes', clientes_controller_1.default.getAllClients);
+routers.get('/clientes/:code', clientes_controller_1.default.getClientByCode);
 exports.default = routers;

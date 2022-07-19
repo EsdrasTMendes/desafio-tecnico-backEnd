@@ -17,6 +17,12 @@ const getAllClients = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const clients = yield clientes_service_1.default.getAllClients();
     return res.status(200).json(clients);
 });
+const getClientByCode = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { code } = req.params;
+    const client = yield clientes_service_1.default.getClientByCode(+code);
+    return res.status(200).json(client);
+});
 exports.default = {
     getAllClients,
+    getClientByCode,
 };
