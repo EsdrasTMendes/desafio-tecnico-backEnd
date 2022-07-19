@@ -12,21 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const clientes_model_1 = __importDefault(require("../models/clientes.model"));
-const getAllClients = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield clientes_model_1.default.getAllClients();
-    return result;
+const acoes_service_1 = __importDefault(require("../service/acoes.service"));
+const clientes_service_1 = __importDefault(require("../service/clientes.service"));
+const orderBuilder_1 = __importDefault(require("./orderBuilder"));
+const buyOrder = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0, void 0, void 0, function* () {
+    const { valorAtivo } = yield acoes_service_1.default.getStockByCode(codAtivo);
+    const { saldoConta } = yield clientes_service_1.default.getClientByCode(codCliente);
+    const saldoCustodia = valorAtivo * qtdeAtivo;
+    const novoSaldo = saldoConta - saldoCustodia;
+    const uptadeClient = (0, orderBuilder_1.default)(codCliente, saldoCustodia, novoSaldo);
+    acoes_service_1.default.updateByCode(qtdeAtivo, codAtivo);
+    clientes_service_1.default.updateClientByCode(uptadeClient);
 });
-const getClientByCode = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
-    const [client] = yield clientes_model_1.default.getClientsByCode(codCliente);
-    return client;
-});
-const updateClientByCode = ({ codCliente, saldoConta, saldoCustodia }) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield clientes_model_1.default.updateClientByCode(codCliente, saldoConta, saldoCustodia);
-    return result;
-});
-exports.default = {
-    getAllClients,
-    getClientByCode,
-    updateClientByCode,
-};
+exports.default = buyOrder;

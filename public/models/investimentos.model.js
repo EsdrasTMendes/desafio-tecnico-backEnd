@@ -19,6 +19,19 @@ const getAllInvestiments = () => __awaiter(void 0, void 0, void 0, function* () 
     StockmarketXP.investimentos`);
     return result;
 });
+// const getInvestimentByAsset = async (): Promise<IInvestimentos> => {
+//   const result = await connection.execute(
+//     `SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
+//     qtd_ativo AS qtdeAtivo FROM 
+//     StockmarketXP.investimentos`
+//   )
+// }
+const getInvestimentByClient = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`SELECT cod_cliente AS codCliente, cod_ativo AS codAtivo,
+    qtd_ativo AS qtdeAtivo FROM 
+    StockmarketXP.investimentos WHERE cod_cliente = ?`, [codCliente]);
+    return result;
+});
 const createInvestiment = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`INSERT INTO investimentos(cod_cliente, cod_ativo, qtd_ativo)
     VALUES (?,?,?)`, [codCliente, codAtivo, qtdeAtivo]);
@@ -27,4 +40,5 @@ const createInvestiment = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0,
 exports.default = {
     getAllInvestiments,
     createInvestiment,
+    getInvestimentByClient,
 };

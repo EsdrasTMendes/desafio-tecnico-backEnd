@@ -20,21 +20,13 @@ const getClientsByCode = async (codCliente: number): Promise<IClientes[]> => {
   return result as IClientes[]
 };
 
-const updateClientByCodeBuy = async (codCliente:number, saldoCustodia: number, saldoConta: number): Promise<ResultSetHeader|undefined> => {
+const updateClientByCode = async (codCliente:number, saldoCustodia: number, saldoConta: number): Promise<ResultSetHeader> => {
     const [result] = await connection.execute<ResultSetHeader>(
       `UPDATE clientes SET saldo_custodia = ?, saldo_conta = ? WHERE cod_cliente = ?`,
       [saldoCustodia, saldoConta, codCliente]
     );
     return result
 }
-
-// if(operacao ==='venda') {
-//   const [result] = await connection.execute<ResultSetHeader>(
-//     `UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`,
-//     [saldoCustodia, codCliente]
-//   );
-//   return result
-// }
 
 const withdrawAndDepositByCode = async (codCliente:number, valor: number, operacao: string): Promise<ResultSetHeader| undefined> => {
   if(operacao === 'saque') {
@@ -56,6 +48,6 @@ const withdrawAndDepositByCode = async (codCliente:number, valor: number, operac
 export default {
   getAllClients,
   getClientsByCode,
-  updateClientByCodeBuy,
+  updateClientByCode,
   withdrawAndDepositByCode,
 }

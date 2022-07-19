@@ -11,7 +11,14 @@ const createInvestiment = async (req: Request, res: Response): Promise<Response>
   return res.status(status).json(response)
 };
 
+const getInvestimentByClient = async (req: Request, res: Response): Promise<Response> => {
+  const {codCliente, codAtivo} = req.params;
+  const result = await service.getInvestimentByClient(+codCliente)
+  return res.status(200).json(result);
+}
+
 export default {
   getAllInvestiments,
   createInvestiment,
+  getInvestimentByClient,
 }

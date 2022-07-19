@@ -10,13 +10,13 @@ const getClientByCode = async (codCliente: number): Promise<IClientes> => {
   const [client] = await model.getClientsByCode(codCliente);
   return client;
 };
-const updateClientByCodeBuy = async ({ codCliente, saldoConta, saldoCustodia}: IClientes): Promise<ResultSetHeader|undefined> => {
-  const result = await model.updateClientByCodeBuy(codCliente, saldoConta, saldoCustodia )
+const updateClientByCode = async ({ codCliente, saldoConta, saldoCustodia}: IClientes): Promise<ResultSetHeader|undefined> => {
+  const result = await model.updateClientByCode(codCliente, saldoConta, saldoCustodia )
   return result;
 }
 
 export default {
   getAllClients,
   getClientByCode,
-  updateClientByCodeBuy,
+  updateClientByCode,
 }

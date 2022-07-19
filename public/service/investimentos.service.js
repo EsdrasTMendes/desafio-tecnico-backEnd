@@ -13,22 +13,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const investimentos_model_1 = __importDefault(require("../models/investimentos.model"));
-const acoes_service_1 = __importDefault(require("./acoes.service"));
-const clientes_service_1 = __importDefault(require("./clientes.service"));
-const orderBuilder_1 = __importDefault(require("../utils/orderBuilder"));
+const buyOrder_1 = __importDefault(require("../utils/buyOrder"));
 const getAllInvestiments = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield investimentos_model_1.default.getAllInvestiments();
     return result;
 });
+const getInvestimentByClient = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield investimentos_model_1.default.getInvestimentByClient(codCliente);
+    return result;
+});
 const createInvestiment = ({ codCliente, codAtivo, qtdeAtivo }) => __awaiter(void 0, void 0, void 0, function* () {
     const { insertId } = yield investimentos_model_1.default.createInvestiment(codCliente, codAtivo, qtdeAtivo);
-    const { valorAtivo } = yield acoes_service_1.default.getStockByCode(codAtivo);
-    const { saldoConta } = yield clientes_service_1.default.getClientByCode(codCliente);
-    const saldoCustodia = valorAtivo * qtdeAtivo;
-    const novoSaldo = saldoConta - saldoCustodia;
-    const uptadeClient = (0, orderBuilder_1.default)(codCliente, saldoCustodia, novoSaldo);
-    acoes_service_1.default.updateByCode(qtdeAtivo, codAtivo);
-    clientes_service_1.default.updateClientByCodeBuy(uptadeClient);
+    (0, buyOrder_1.default)(codCliente, codAtivo, qtdeAtivo);
+    // const {valorAtivo} = await acoesService.getStockByCode(codAtivo);
+    // const {saldoConta} = await clientesService.getClientByCode(codCliente)
+    // const saldoCustodia = valorAtivo * qtdeAtivo;
+    // const novoSaldo = saldoConta - saldoCustodia;
+    // const uptadeClient = orderBuilder(codCliente,saldoCustodia, novoSaldo)
+    // acoesService.updateByCode(qtdeAtivo, codAtivo);
+    // clientesService.updateClientByCodeBuy(uptadeClient);
     const result = {
         id: insertId,
         codCliente,
@@ -43,4 +46,5 @@ const createInvestiment = ({ codCliente, codAtivo, qtdeAtivo }) => __awaiter(voi
 exports.default = {
     getAllInvestiments,
     createInvestiment,
+    getInvestimentByClient,
 };

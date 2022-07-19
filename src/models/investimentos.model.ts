@@ -12,6 +12,24 @@ const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
   return result as IInvestimentos[];
 };
 
+// const getInvestimentByAsset = async (): Promise<IInvestimentos> => {
+//   const result = await connection.execute(
+//     `SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
+//     qtd_ativo AS qtdeAtivo FROM 
+//     StockmarketXP.investimentos`
+//   )
+// }
+
+const getInvestimentByClient = async (codCliente: number): Promise<IInvestimentos[]> => {
+  const [result] = await connection.execute(
+    `SELECT cod_cliente AS codCliente, cod_ativo AS codAtivo,
+    qtd_ativo AS qtdeAtivo FROM 
+    StockmarketXP.investimentos WHERE cod_cliente = ?`,
+    [codCliente]
+  )
+  return result as IInvestimentos[]
+}
+
 const createInvestiment = async (codCliente: number, codAtivo: number, qtdeAtivo: number): Promise<ResultSetHeader> => {
   const [result] = await connection.execute<ResultSetHeader>(
     `INSERT INTO investimentos(cod_cliente, cod_ativo, qtd_ativo)
@@ -24,4 +42,5 @@ const createInvestiment = async (codCliente: number, codAtivo: number, qtdeAtivo
 export default {
   getAllInvestiments,
   createInvestiment,
+  getInvestimentByClient,
 }
