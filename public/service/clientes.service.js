@@ -21,7 +21,12 @@ const getClientByCode = (codCliente) => __awaiter(void 0, void 0, void 0, functi
     const [client] = yield clientes_model_1.default.getClientsByCode(codCliente);
     return client;
 });
+const updateClientByCodeBuy = ({ codCliente, saldoConta, saldoCustodia }) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield clientes_model_1.default.updateClientByCodeBuy(codCliente, saldoConta, saldoCustodia);
+    return result;
+});
 exports.default = {
     getAllClients,
     getClientByCode,
+    updateClientByCodeBuy,
 };

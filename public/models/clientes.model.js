@@ -23,7 +23,30 @@ const getClientsByCode = (codCliente) => __awaiter(void 0, void 0, void 0, funct
     saldo_custodia AS saldoCustodia FROM StockmarketXP.clientes WHERE cod_cliente = ?`, [codCliente]);
     return result;
 });
+const updateClientByCodeBuy = (codCliente, saldoCustodia, saldoConta) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_custodia = ?, saldo_conta = ? WHERE cod_cliente = ?`, [saldoCustodia, saldoConta, codCliente]);
+    return result;
+});
+// if(operacao ==='venda') {
+//   const [result] = await connection.execute<ResultSetHeader>(
+//     `UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`,
+//     [saldoCustodia, codCliente]
+//   );
+//   return result
+// }
+const withdrawAndDepositByCode = (codCliente, valor, operacao) => __awaiter(void 0, void 0, void 0, function* () {
+    if (operacao === 'saque') {
+        const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`, [valor, codCliente]);
+        return result;
+    }
+    if (operacao === 'deposito') {
+        const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`, [valor, codCliente]);
+        return result;
+    }
+});
 exports.default = {
     getAllClients,
     getClientsByCode,
+    updateClientByCodeBuy,
+    withdrawAndDepositByCode,
 };
