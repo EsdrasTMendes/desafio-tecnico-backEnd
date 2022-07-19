@@ -13,12 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const investimentos_model_1 = __importDefault(require("../models/investimentos.model"));
+const acoes_service_1 = __importDefault(require("./acoes.service"));
 const getAllInvestiments = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield investimentos_model_1.default.getAllInvestiments();
     return result;
 });
 const createInvestiment = ({ codCliente, codAtivo, qtdeAtivo }) => __awaiter(void 0, void 0, void 0, function* () {
     const { insertId } = yield investimentos_model_1.default.createInvestiment(codCliente, codAtivo, qtdeAtivo);
+    acoes_service_1.default.updateByCode(qtdeAtivo, codAtivo);
     const result = {
         id: insertId,
         codCliente,

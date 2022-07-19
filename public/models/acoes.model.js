@@ -22,7 +22,12 @@ const getStockByCode = (codAtivo) => __awaiter(void 0, void 0, void 0, function*
     FROM StockmarketXP.acoes WHERE cod_ativo = ?`, [codAtivo]);
     return result;
 });
+const updateByCode = (qtdeDisponivel, codAtivo) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`UPDATE acoes SET qtde_disponivel = ? WHERE cod_ativo = ?`, [qtdeDisponivel, codAtivo]);
+    return result;
+});
 exports.default = {
     getAllStocks,
     getStockByCode,
+    updateByCode,
 };

@@ -4,7 +4,6 @@ interface IClientes {
   codCliente: number;
   saldoConta: number; 
   saldoCustodia: number;
-  corretoraId: number;
 }
 
 export default IClientes;

@@ -21,7 +21,13 @@ const getStockByCode = (codAtivo) => __awaiter(void 0, void 0, void 0, function*
     const [result] = yield acoes_model_1.default.getStockByCode(codAtivo);
     return result;
 });
+const updateByCode = (qtdeAtivo, codAtivo) => __awaiter(void 0, void 0, void 0, function* () {
+    const { qtdeDisponivel } = yield getStockByCode(codAtivo);
+    const qtdeDisponivelAtual = qtdeDisponivel - qtdeAtivo;
+    const result = yield acoes_model_1.default.updateByCode(qtdeDisponivelAtual, codAtivo);
+});
 exports.default = {
     getAllStocks,
     getStockByCode,
+    updateByCode,
 };

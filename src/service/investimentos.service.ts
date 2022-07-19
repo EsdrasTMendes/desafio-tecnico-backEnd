@@ -1,7 +1,7 @@
 import model from '../models/investimentos.model'
+import acoesService from './acoes.service';
 import IInvestimentos from '../interfaces/IInvestimentos';
 import IcreateInvestiment from '../interfaces/ICreateInvestiment';
-import { ResultSetHeader } from 'mysql2';
 
 const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
   const result = await model.getAllInvestiments();
@@ -12,6 +12,7 @@ const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
 
 const createInvestiment = async ({ codCliente, codAtivo, qtdeAtivo }: IInvestimentos): Promise <IcreateInvestiment> => {
   const {insertId} = await model.createInvestiment(codCliente, codAtivo, qtdeAtivo);
+  acoesService.updateByCode(qtdeAtivo, codAtivo);
   const result = {
     id: insertId,
     codCliente,

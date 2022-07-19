@@ -1,5 +1,6 @@
 import connection from "./connection";
 import IAcoes from "../interfaces/IAcoes";
+import { ResultSetHeader } from "mysql2";
 
 
 const getAllStocks = async (): Promise<IAcoes[]> => {
@@ -17,7 +18,18 @@ const getStockByCode = async (codAtivo: number): Promise<IAcoes[]> => {
   );
   return result as IAcoes[];
 }
+
+const updateByCode = async (qtdeDisponivel: number, codAtivo: number): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+    `UPDATE acoes SET qtde_disponivel = ? WHERE cod_ativo = ?`,
+    [qtdeDisponivel, codAtivo]
+  );
+  return result
+}
+
+
 export default {
   getAllStocks,
   getStockByCode,
+  updateByCode,
 }
