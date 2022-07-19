@@ -19,6 +19,12 @@ const getAllInvestiments = () => __awaiter(void 0, void 0, void 0, function* () 
     StockmarketXP.investimentos`);
     return result;
 });
+const createInvestiment = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`INSERT INTO investimentos(cod_cliente, cod_ativo, qtd_ativo)
+    VALUES (?,?,?)`, [codCliente, codAtivo, qtdeAtivo]);
+    return result;
+});
 exports.default = {
     getAllInvestiments,
+    createInvestiment,
 };
