@@ -14,9 +14,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("./connection"));
 const getAllStocks = () => __awaiter(void 0, void 0, void 0, function* () {
-    const [result] = yield connection_1.default.execute('SELECT ativo_id AS ativoId, cod_ativo AS codAtivo, valor_ativo AS valorAtivo FROM StockmarketXP.acoes');
+    const [result] = yield connection_1.default.execute('SELECT cod_ativo AS codAtivo, cod_mercado as codMercado, valor_ativo AS valorAtivo, qtde_disponivel AS qtdeDisponivel FROM StockmarketXP.acoes');
+    return result;
+});
+const getStockByCode = (codAtivo) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`SELECT cod_ativo AS codAtivo, cod_mercado as codMercado, valor_ativo AS valorAtivo, qtde_disponivel AS qtdeDisponivel
+    FROM StockmarketXP.acoes WHERE cod_ativo = ?`, [codAtivo]);
+    return result;
+});
+const updateByCode = (qtdeDisponivel, codAtivo) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`UPDATE acoes SET qtde_disponivel = ? WHERE cod_ativo = ?`, [qtdeDisponivel, codAtivo]);
     return result;
 });
 exports.default = {
     getAllStocks,
+    getStockByCode,
+    updateByCode,
 };

@@ -12,10 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const connection_1 = __importDefault(require("./connection"));
+const corretoras_model_1 = __importDefault(require("../models/corretoras.model"));
 const getAllStockBrokers = () => __awaiter(void 0, void 0, void 0, function* () {
-    const [result] = yield connection_1.default.execute(`SELECT corretora_id AS corretoraId, nome_corretora AS nomeCorretora
-    FROM StockmarketXP.corretoras`);
+    const result = yield corretoras_model_1.default.getAllStockBrokers();
     return result;
 });
 exports.default = {

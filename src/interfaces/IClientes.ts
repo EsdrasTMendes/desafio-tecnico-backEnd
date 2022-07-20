@@ -1,10 +1,8 @@
 interface IClientes {
-  clienteId: number, 
-  nomeCliente: string,
-  codCliente: number,
-  saldoCliente: number, 
-  saldoCustodia: number,
-  corretoraId: number,
+  codCliente: number;
+  nomeCliente?: string;
+  saldoConta: number; 
+  saldoCustodia: number;
 }
 
 export default IClientes;

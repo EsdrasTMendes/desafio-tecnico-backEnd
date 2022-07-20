@@ -1,7 +1,8 @@
 interface IAcoes {
-  ativoId: number;
-  codAtivo: string;
+  codAtivo: number;
+  codMercado: string;
   valorAtivo: number;
+  qtdeDisponivel: number;
 }
 
 export default IAcoes
