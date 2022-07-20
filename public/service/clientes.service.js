@@ -25,8 +25,24 @@ const updateClientByCode = ({ codCliente, saldoConta, saldoCustodia }) => __awai
     const result = yield clientes_model_1.default.updateClientByCode(codCliente, saldoConta, saldoCustodia);
     return result;
 });
+const withdrawByCode = ({ CodCliente, Valor }) => __awaiter(void 0, void 0, void 0, function* () {
+    const [client] = yield clientes_model_1.default.getClientsByCode(CodCliente);
+    const newValueConta = Number(client.saldoConta) - Number(Valor);
+    const result = yield clientes_model_1.default.withdrawAndDepositByCode(CodCliente, newValueConta);
+    console.log(result);
+    return result;
+});
+const depositByCode = ({ CodCliente, Valor }) => __awaiter(void 0, void 0, void 0, function* () {
+    const [client] = yield clientes_model_1.default.getClientsByCode(CodCliente);
+    const newValueConta = Number(client.saldoConta) + Number(Valor);
+    const result = yield clientes_model_1.default.withdrawAndDepositByCode(CodCliente, newValueConta);
+    console.log(result);
+    return result;
+});
 exports.default = {
     getAllClients,
     getClientByCode,
     updateClientByCode,
+    withdrawByCode,
+    depositByCode,
 };

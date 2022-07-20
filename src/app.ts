@@ -6,8 +6,8 @@ import clientesRouters from './routers/clientes.router';
 
 const app = express();
 const port = 3000;
-app.use(express.json())
-app.use(acoesRouters,investimentosRouters,clientesRouters)
+app.use(express.json());
+app.use(acoesRouters,investimentosRouters,clientesRouters);
 app.get('/', (req: Request, res: Response): Response => {
   return res.send('Inicio do desafio Técnico');
 });

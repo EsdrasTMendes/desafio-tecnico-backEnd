@@ -22,7 +22,17 @@ const getClientByCode = (req, res) => __awaiter(void 0, void 0, void 0, function
     const client = yield clientes_service_1.default.getClientByCode(+code);
     return res.status(200).json(client);
 });
+const depositByCode = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const deposit = yield clientes_service_1.default.depositByCode(req.body);
+    return res.status(200).json({ message: 'Depósito realizado com sucesso' });
+});
+const withdrawByCode = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const deposit = yield clientes_service_1.default.withdrawByCode(req.body);
+    return res.status(200).json({ message: 'Saque realizado com sucesso' });
+});
 exports.default = {
     getAllClients,
     getClientByCode,
+    depositByCode,
+    withdrawByCode,
 };

@@ -28,21 +28,12 @@ const updateClientByCode = async (codCliente:number, saldoCustodia: number, sald
     return result
 }
 
-const withdrawAndDepositByCode = async (codCliente:number, valor: number, operacao: string): Promise<ResultSetHeader| undefined> => {
-  if(operacao === 'saque') {
+const withdrawAndDepositByCode = async (codCliente:number, valor: number): Promise<ResultSetHeader> => {
     const [result] = await connection.execute<ResultSetHeader>(
       `UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`,
       [valor, codCliente]
     );
     return result
-  }
-  if(operacao ==='deposito') {
-    const [result] = await connection.execute<ResultSetHeader>(
-      `UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`,
-      [valor, codCliente]
-    );
-    return result
-  }
 }
 
 export default {

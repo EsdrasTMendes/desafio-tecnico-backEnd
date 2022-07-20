@@ -27,15 +27,9 @@ const updateClientByCode = (codCliente, saldoCustodia, saldoConta) => __awaiter(
     const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_custodia = ?, saldo_conta = ? WHERE cod_cliente = ?`, [saldoCustodia, saldoConta, codCliente]);
     return result;
 });
-const withdrawAndDepositByCode = (codCliente, valor, operacao) => __awaiter(void 0, void 0, void 0, function* () {
-    if (operacao === 'saque') {
-        const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`, [valor, codCliente]);
-        return result;
-    }
-    if (operacao === 'deposito') {
-        const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`, [valor, codCliente]);
-        return result;
-    }
+const withdrawAndDepositByCode = (codCliente, valor) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`, [valor, codCliente]);
+    return result;
 });
 exports.default = {
     getAllClients,

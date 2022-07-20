@@ -11,7 +11,19 @@ const getClientByCode = async (req: Request, res: Response): Promise<Response> =
   const client = await service.getClientByCode(+code);
   return res.status(200).json(client);
 };
+
+const depositByCode = async (req: Request, res: Response): Promise<Response> => {
+  const deposit = await service.depositByCode(req.body);
+  return res.status(200).json({message: 'Depósito realizado com sucesso'})
+};
+
+const withdrawByCode = async (req: Request, res: Response): Promise<Response> => {
+  const deposit = await service.withdrawByCode(req.body);
+  return res.status(200).json({message: 'Saque realizado com sucesso'})
+};
 export default {
   getAllClients,
   getClientByCode,
+  depositByCode,
+  withdrawByCode,
 }

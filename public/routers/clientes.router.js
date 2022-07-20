@@ -8,4 +8,6 @@ const clientes_controller_1 = __importDefault(require("../controller/clientes.co
 const routers = (0, express_1.Router)();
 routers.get('/clientes', clientes_controller_1.default.getAllClients);
 routers.get('/conta/:code', clientes_controller_1.default.getClientByCode);
+routers.post('/conta/deposito', clientes_controller_1.default.depositByCode);
+routers.post('/conta/saque', clientes_controller_1.default.withdrawByCode);
 exports.default = routers;

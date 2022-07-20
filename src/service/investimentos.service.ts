@@ -13,7 +13,7 @@ const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
 const getInvestimentByClient = async (codCliente: number): Promise <IInvestimentos[]> => {
   const result = await model.getInvestimentByClient(codCliente)
   return result
-}
+};
 
 const createInvestiment = async ({ codCliente, codAtivo, qtdeAtivo }: IInvestimentos): Promise <IcreateInvestiment> => {
   const [investiment] = await model.getInvestimentByClientAndAsset(codCliente, codAtivo);
@@ -25,7 +25,8 @@ const createInvestiment = async ({ codCliente, codAtivo, qtdeAtivo }: IInvestime
       status: 200,
       response: result,
     }
-  }
+  };
+
   const newqtdeAtivos = Number(Number(investiment.qtdeAtivo) + Number(qtdeAtivo));
   const update = await model.updateInvestiment(newqtdeAtivos, investiment.id);
   buyOrdersUpdateValues(codCliente, codAtivo, qtdeAtivo);
@@ -46,7 +47,8 @@ const sellInvestiment = async({ codCliente, codAtivo, qtdeAtivo }: IInvestimento
       status: 200,
       response: result,
     }
-  }
+  };
+
   const newqtdeAtivos = Number(investiment.qtdeAtivo) - Number(qtdeAtivo); 
   const update = await model.updateInvestiment(newqtdeAtivos, investiment.id)
   sellOrdersUpdateValues(codCliente, codAtivo, qtdeAtivo);
@@ -56,7 +58,6 @@ const sellInvestiment = async({ codCliente, codAtivo, qtdeAtivo }: IInvestimento
     response: result,
   }
 };
-
 
 export default {
   getAllInvestiments,

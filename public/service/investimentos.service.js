@@ -35,6 +35,7 @@ const createInvestiment = ({ codCliente, codAtivo, qtdeAtivo }) => __awaiter(voi
             response: result,
         };
     }
+    ;
     const newqtdeAtivos = Number(Number(investiment.qtdeAtivo) + Number(qtdeAtivo));
     const update = yield investimentos_model_1.default.updateInvestiment(newqtdeAtivos, investiment.id);
     (0, buyOrdersUpdateValues_1.default)(codCliente, codAtivo, qtdeAtivo);
@@ -55,6 +56,7 @@ const sellInvestiment = ({ codCliente, codAtivo, qtdeAtivo }) => __awaiter(void 
             response: result,
         };
     }
+    ;
     const newqtdeAtivos = Number(investiment.qtdeAtivo) - Number(qtdeAtivo);
     const update = yield investimentos_model_1.default.updateInvestiment(newqtdeAtivos, investiment.id);
     (0, sellOrdersUpdateValues_1.default)(codCliente, codAtivo, qtdeAtivo);
