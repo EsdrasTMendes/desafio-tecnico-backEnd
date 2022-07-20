@@ -1,5 +1,5 @@
 interface IInvestimentos {
-  id?: number;
+  id: number;
   codCliente: number;
   codAtivo:number;
   qtdeAtivo: number

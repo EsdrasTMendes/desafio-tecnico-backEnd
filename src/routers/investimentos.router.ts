@@ -4,13 +4,20 @@ import middlewares from '../middlewares/investimento.middleware';
 
 const routers = Router();
 
-routers.get('/investimentos', controller.getAllInvestiments);
-routers.get('/investimentos/:codCliente', controller.getInvestimentByClient)
+routers.get('/investimentos',
+controller.getAllInvestiments);
+
+routers.get('/investimentos/:codCliente',
+controller.getInvestimentByClient);
+
 routers.post('/investimentos/comprar',
 middlewares.qtdeAtivosMiddleware,
 middlewares.qtdeDisponivelConta,
 controller.createInvestiment
-)
+);
+
+routers.post('/investimentos/vender',
+controller.sellInvestiment);
 
 
 export default routers

@@ -1,8 +1,10 @@
-import IInvestimentos from './IInvestimentos';
-
 interface IcreateInvestiment {
   status: number, 
-  response: IInvestimentos,
+  response: {
+    codCliente: number, 
+    codAtivo: number,
+    qtdeAtivo: number
+  },
 }
 
 export default IcreateInvestiment;

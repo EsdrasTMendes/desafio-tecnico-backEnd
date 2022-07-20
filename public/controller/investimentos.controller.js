@@ -26,8 +26,13 @@ const getInvestimentByClient = (req, res) => __awaiter(void 0, void 0, void 0, f
     const result = yield investimentos_service_1.default.getInvestimentByClient(+codCliente);
     return res.status(200).json(result);
 });
+const sellInvestiment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { status, response } = yield investimentos_service_1.default.sellInvestiment(req.body);
+    return res.status(status).json(response);
+});
 exports.default = {
     getAllInvestiments,
     createInvestiment,
     getInvestimentByClient,
+    sellInvestiment,
 };

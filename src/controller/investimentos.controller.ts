@@ -17,8 +17,14 @@ const getInvestimentByClient = async (req: Request, res: Response): Promise<Resp
   return res.status(200).json(result);
 }
 
+const sellInvestiment = async (req: Request, res: Response): Promise<Response> => {
+  const {status, response} = await service.sellInvestiment(req.body);
+  return res.status(status).json(response)
+};
+
 export default {
   getAllInvestiments,
   createInvestiment,
   getInvestimentByClient,
+  sellInvestiment,
 }

@@ -19,17 +19,20 @@ const getAllInvestiments = () => __awaiter(void 0, void 0, void 0, function* () 
     StockmarketXP.investimentos`);
     return result;
 });
-// const getInvestimentByAsset = async (): Promise<IInvestimentos> => {
-//   const result = await connection.execute(
-//     `SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
-//     qtd_ativo AS qtdeAtivo FROM 
-//     StockmarketXP.investimentos`
-//   )
-// }
 const getInvestimentByClient = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`SELECT cod_cliente AS codCliente, cod_ativo AS codAtivo,
     qtd_ativo AS qtdeAtivo FROM 
     StockmarketXP.investimentos WHERE cod_cliente = ?`, [codCliente]);
+    return result;
+});
+const getInvestimentByClientAndAsset = (codCliente, codAtivo) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
+    qtd_ativo AS qtdeAtivo FROM 
+    StockmarketXP.investimentos WHERE cod_cliente = ? AND cod_ativo = ?`, [codCliente, codAtivo]);
+    return result;
+});
+const updateInvestiment = (qtdeAtivo, id) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`UPDATE investimentos SET qtd_ativo = ? WHERE id= ?`, [qtdeAtivo, id]);
     return result;
 });
 const createInvestiment = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,8 +40,15 @@ const createInvestiment = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0,
     VALUES (?,?,?)`, [codCliente, codAtivo, qtdeAtivo]);
     return result;
 });
+const deleteInvestiment = (codCliente, codAtivo) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`DELETE FROM investimentos WHERE cod_cliente = ? AND cod_ativo = ?`, [codCliente, codAtivo]);
+    return result;
+});
 exports.default = {
     getAllInvestiments,
     createInvestiment,
     getInvestimentByClient,
+    getInvestimentByClientAndAsset,
+    updateInvestiment,
+    deleteInvestiment,
 };

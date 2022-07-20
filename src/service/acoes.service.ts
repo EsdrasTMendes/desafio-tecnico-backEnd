@@ -11,9 +11,9 @@ const getStockByCode = async (codAtivo: number): Promise<IAcoes> => {
   return result;
 }
 const updateByCode = async (qtdeAtivo:number, codAtivo:number) => {
-  const {qtdeDisponivel} = await getStockByCode(codAtivo);
-  const qtdeDisponivelAtual = qtdeDisponivel - qtdeAtivo;
-  const result = await model.updateByCode(qtdeDisponivelAtual, codAtivo);
+  // const {qtdeDisponivel} = await getStockByCode(codAtivo);
+  // const qtdeDisponivelAtual = qtdeDisponivel - qtdeAtivo;
+  const result = await model.updateByCode(qtdeAtivo, codAtivo);
 }
 
 export default {

@@ -12,14 +12,6 @@ const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
   return result as IInvestimentos[];
 };
 
-// const getInvestimentByAsset = async (): Promise<IInvestimentos> => {
-//   const result = await connection.execute(
-//     `SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
-//     qtd_ativo AS qtdeAtivo FROM 
-//     StockmarketXP.investimentos`
-//   )
-// }
-
 const getInvestimentByClient = async (codCliente: number): Promise<IInvestimentos[]> => {
   const [result] = await connection.execute(
     `SELECT cod_cliente AS codCliente, cod_ativo AS codAtivo,
@@ -28,6 +20,24 @@ const getInvestimentByClient = async (codCliente: number): Promise<IInvestimento
     [codCliente]
   )
   return result as IInvestimentos[]
+}
+
+const getInvestimentByClientAndAsset = async (codCliente: number, codAtivo: number): Promise<IInvestimentos[]> =>  {
+  const [result] = await connection.execute(
+    `SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
+    qtd_ativo AS qtdeAtivo FROM 
+    StockmarketXP.investimentos WHERE cod_cliente = ? AND cod_ativo = ?`,
+    [codCliente, codAtivo]
+  )
+  return result as IInvestimentos[]
+}
+
+const updateInvestiment = async (qtdeAtivo: number, id: number): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+    `UPDATE investimentos SET qtd_ativo = ? WHERE id= ?`,
+    [qtdeAtivo, id]
+  )
+  return result
 }
 
 const createInvestiment = async (codCliente: number, codAtivo: number, qtdeAtivo: number): Promise<ResultSetHeader> => {
@@ -39,8 +49,19 @@ const createInvestiment = async (codCliente: number, codAtivo: number, qtdeAtivo
   return result
 };
 
+const deleteInvestiment = async (codCliente: number, codAtivo: number): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+    `DELETE FROM investimentos WHERE cod_cliente = ? AND cod_ativo = ?`,
+    [codCliente, codAtivo]
+  );
+  return result
+};
+
 export default {
   getAllInvestiments,
   createInvestiment,
   getInvestimentByClient,
+  getInvestimentByClientAndAsset,
+  updateInvestiment,
+  deleteInvestiment,
 }
