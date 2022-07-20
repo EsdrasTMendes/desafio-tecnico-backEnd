@@ -22,8 +22,7 @@ const sellOrdersUpdateValues = (codCliente, codAtivo, qtdeAtivo) => __awaiter(vo
     const novoSaldoCustodia = +saldoCustodia - saldoVenda;
     const novoSaldoConta = +saldoConta + saldoVenda;
     const uptadeClient = (0, orderBuilder_1.default)(codCliente, novoSaldoCustodia, novoSaldoConta);
-    console.log(acao);
-    const novaQtdeAtivo = acao.qtdeDisponivel + +qtdeAtivo;
+    const novaQtdeAtivo = +acao.qtdeDisponivel + qtdeAtivo;
     acoes_service_1.default.updateByCode(novaQtdeAtivo, codAtivo);
     clientes_service_1.default.updateClientByCode(uptadeClient);
 });

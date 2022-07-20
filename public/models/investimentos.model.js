@@ -20,9 +20,16 @@ const getAllInvestiments = () => __awaiter(void 0, void 0, void 0, function* () 
     return result;
 });
 const getInvestimentByClient = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
-    const [result] = yield connection_1.default.execute(`SELECT cod_cliente AS codCliente, cod_ativo AS codAtivo,
-    qtd_ativo AS qtdeAtivo FROM 
-    StockmarketXP.investimentos WHERE cod_cliente = ?`, [codCliente]);
+    const [result] = yield connection_1.default.execute(`SELECT
+    i.cod_cliente AS CodCliente,
+    i.cod_ativo AS CodAtivo,
+    i.qtd_ativo AS QtdeAtivo, 
+    a.valor_ativo AS Valor 
+    FROM 
+    StockmarketXP.investimentos AS i
+    INNER JOIN StockmarketXP.acoes AS a
+    ON i.cod_ativo = a.cod_ativo
+    WHERE i.cod_cliente = ?`, [codCliente]);
     return result;
 });
 const getInvestimentByClientAndAsset = (codCliente, codAtivo) => __awaiter(void 0, void 0, void 0, function* () {

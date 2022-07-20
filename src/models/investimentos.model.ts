@@ -14,9 +14,16 @@ const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
 
 const getInvestimentByClient = async (codCliente: number): Promise<IInvestimentos[]> => {
   const [result] = await connection.execute(
-    `SELECT cod_cliente AS codCliente, cod_ativo AS codAtivo,
-    qtd_ativo AS qtdeAtivo FROM 
-    StockmarketXP.investimentos WHERE cod_cliente = ?`,
+    `SELECT
+    i.cod_cliente AS CodCliente,
+    i.cod_ativo AS CodAtivo,
+    i.qtd_ativo AS QtdeAtivo, 
+    a.valor_ativo AS Valor 
+    FROM 
+    StockmarketXP.investimentos AS i
+    INNER JOIN StockmarketXP.acoes AS a
+    ON i.cod_ativo = a.cod_ativo
+    WHERE i.cod_cliente = ?`,
     [codCliente]
   )
   return result as IInvestimentos[]

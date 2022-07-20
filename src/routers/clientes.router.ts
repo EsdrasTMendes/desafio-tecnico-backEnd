@@ -4,7 +4,7 @@ import controller from '../controller/clientes.controller';
 const routers = Router();
 
 routers.get('/clientes', controller.getAllClients);
-routers.get('/clientes/:code', controller.getClientByCode);
+routers.get('/conta/:code', controller.getClientByCode);
 
 
 
