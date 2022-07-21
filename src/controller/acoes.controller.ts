@@ -7,8 +7,8 @@ const getAllStocks = async (req: Request, res: Response): Promise<Response> => {
 };
 
 const getStockByCode = async (req: Request, res: Response): Promise<Response> => {
-  const {code} = (req.params);
-  const stock = await service.getStockByCode(+code);
+  const {codAtivo} = (req.params);
+  const stock = await service.getStockByCode(+codAtivo);
   return res.status(200).json(stock);
 };
 

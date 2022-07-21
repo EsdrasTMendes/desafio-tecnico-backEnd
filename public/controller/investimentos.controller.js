@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const investimentos_service_1 = __importDefault(require("../service/investimentos.service"));
-const getAllInvestiments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllInvestiments = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const wallets = yield investimentos_service_1.default.getAllInvestiments();
     return res.status(200).json(wallets);
 });
@@ -22,7 +22,7 @@ const createInvestiment = (req, res) => __awaiter(void 0, void 0, void 0, functi
     return res.status(status).json(response);
 });
 const getInvestimentByClient = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { codCliente, codAtivo } = req.params;
+    const { codCliente } = req.params;
     const result = yield investimentos_service_1.default.getInvestimentByClient(+codCliente);
     return res.status(200).json(result);
 });

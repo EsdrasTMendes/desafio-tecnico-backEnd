@@ -2,23 +2,32 @@ import { Request, Response, NextFunction } from "express";
 import acoesService from "../service/acoes.service";
 import clientesService from "../service/clientes.service";
 
-const qtdeAtivosMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-  const { codCliente, codAtivo, qtdeAtivo } = req.body;
-  const { qtdeDisponivel } = await acoesService.getStockByCode(codAtivo);
+const qtdeAtivosMiddleware = async (req: Request, _res: Response, next: NextFunction) => {
+  const { codAtivo, qtdeAtivo } = req.body;
+  const { qtdeDisponivel, codMercado } = await acoesService.getStockByCode(codAtivo);
 
   if(qtdeAtivo > qtdeDisponivel) {
-    return res.status(409).json({ message: `ativo indisponível para compra nessa quantidade. Quantidade disponível: ${qtdeDisponivel}`})
+    const error = 
+    { 
+      status: 409,
+      response: `Ativo indisponível para compra nessa quantidade. Quantidade disponível para ${codMercado} é de ${qtdeDisponivel} lotes`
+    }
+    next(error)
     }
     next()
   }
 
-  const qtdeDisponivelConta = async (req: Request, res: Response, next: NextFunction) => {
+  const qtdeDisponivelConta = async (req: Request, _res: Response, next: NextFunction) => {
     const { codCliente, codAtivo, qtdeAtivo } = req.body;
     const {saldoConta} = await clientesService.getClientByCode(codCliente);
     const {valorAtivo} = await acoesService.getStockByCode(codAtivo);
     const valorCompra = qtdeAtivo * valorAtivo;
     if(valorCompra > saldoConta) {
-      return res.status(406).json({message: 'Compra não autorizada, saldo em conta insuficiente.'})
+      const error = {
+        status: 406,
+        response: 'Compra não autorizada, saldo em conta insuficiente.'
+      }
+      next(error)
     }
       next()
     }

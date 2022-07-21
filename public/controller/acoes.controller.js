@@ -18,8 +18,8 @@ const getAllStocks = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     return res.status(200).json(stocks);
 });
 const getStockByCode = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { code } = (req.params);
-    const stock = yield acoes_service_1.default.getStockByCode(+code);
+    const { codAtivo } = (req.params);
+    const stock = yield acoes_service_1.default.getStockByCode(+codAtivo);
     return res.status(200).json(stock);
 });
 exports.default = {

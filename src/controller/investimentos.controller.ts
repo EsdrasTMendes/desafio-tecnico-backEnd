@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import service from '../service/investimentos.service';
 
-const getAllInvestiments = async (req: Request, res: Response): Promise<Response> => {
+const getAllInvestiments = async (_req: Request, res: Response): Promise<Response> => {
   const wallets = await service.getAllInvestiments();
   return res.status(200).json(wallets);
 };
@@ -12,7 +12,7 @@ const createInvestiment = async (req: Request, res: Response): Promise<Response>
 };
 
 const getInvestimentByClient = async (req: Request, res: Response): Promise<Response> => {
-  const {codCliente, codAtivo} = req.params;
+  const {codCliente} = req.params;
   const result = await service.getInvestimentByClient(+codCliente)
   return res.status(200).json(result);
 }

@@ -4,7 +4,8 @@ import controller from '../controller/acoes.controller';
 const routers = Router();
 
 routers.get('/acoes', controller.getAllStocks);
-routers.get('/ativos/:code', controller.getStockByCode);
+routers.get('/ativos/:codAtivo', controller.getStockByCode);
+
 
 
 

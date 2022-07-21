@@ -8,7 +8,7 @@ const sellOrdersUpdateValues = async ( codCliente: number, codAtivo: number, qtd
   const saldoVenda = acao.valorAtivo * qtdeAtivo;
   const novoSaldoCustodia = +saldoCustodia - saldoVenda;
   const novoSaldoConta = +saldoConta + saldoVenda;
-  const uptadeClient = orderBuilder(codCliente, novoSaldoCustodia, novoSaldoConta)
+  const uptadeClient = orderBuilder(codCliente, novoSaldoCustodia, novoSaldoConta);
   const novaQtdeAtivo = +acao.qtdeDisponivel + qtdeAtivo;
   acoesService.updateByCode(novaQtdeAtivo, codAtivo);
   clientesService.updateClientByCode(uptadeClient);
