@@ -18,11 +18,11 @@ const orderBuilder_1 = __importDefault(require("./orderBuilder"));
 const buyOrdersUpdateValues = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0, void 0, void 0, function* () {
     const { valorAtivo, qtdeDisponivel } = yield acoes_service_1.default.getStockByCode(codAtivo);
     const { saldoConta, saldoCustodia } = yield clientes_service_1.default.getClientByCode(codCliente);
-    const valorCompra = valorAtivo * qtdeAtivo;
-    const novosaldoCustodia = valorCompra + +saldoCustodia;
-    const novoSaldo = saldoConta - valorCompra;
+    const valorCompra = Number(valorAtivo) * Number(qtdeAtivo);
+    const novosaldoCustodia = Number(valorCompra) + Number(saldoCustodia);
+    const novoSaldo = Number(saldoConta) - Number(valorCompra);
+    const novaQtdeAtivo = Number(qtdeDisponivel) - Number(qtdeAtivo);
     const uptadeClient = (0, orderBuilder_1.default)(codCliente, novosaldoCustodia, novoSaldo);
-    const novaQtdeAtivo = qtdeDisponivel - qtdeAtivo;
     acoes_service_1.default.updateByCode(novaQtdeAtivo, codAtivo);
     clientes_service_1.default.updateClientByCode(uptadeClient);
 });

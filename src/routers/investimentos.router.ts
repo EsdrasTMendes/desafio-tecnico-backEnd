@@ -1,7 +1,8 @@
 import { Router } from "express";
 import controller from '../controller/investimentos.controller';
 import middlewares from '../middlewares/investimento.middleware';
-import middlewareDeErro from "../middlewares/middlewaredeerro";
+import middlewareDeErro from "../middlewares/error.middlewares";
+import middlewareVenda from "../middlewares/vendas.middlewares";
 
 const routers = Router();
 
@@ -19,7 +20,10 @@ middlewareDeErro
 );
 
 routers.post('/investimentos/vender',
-controller.sellInvestiment);
+middlewareVenda,
+controller.sellInvestiment,
+middlewareDeErro
+);
 
 
 export default routers

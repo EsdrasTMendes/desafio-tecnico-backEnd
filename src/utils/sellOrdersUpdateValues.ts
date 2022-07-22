@@ -5,11 +5,11 @@ import orderBuilder from "./orderBuilder";
 const sellOrdersUpdateValues = async ( codCliente: number, codAtivo: number, qtdeAtivo: number ) => {
   const acao = await acoesService.getStockByCode(codAtivo);
   const {saldoConta, saldoCustodia} = await clientesService.getClientByCode(codCliente);
-  const saldoVenda = acao.valorAtivo * qtdeAtivo;
-  const novoSaldoCustodia = +saldoCustodia - saldoVenda;
-  const novoSaldoConta = +saldoConta + saldoVenda;
+  const saldoVenda = Number(acao.valorAtivo) * Number(qtdeAtivo);
+  const novoSaldoCustodia = Number(saldoCustodia) - Number(saldoVenda);
+  const novoSaldoConta = Number(saldoConta) + Number(saldoVenda);
+  const novaQtdeAtivo = Number(acao.qtdeDisponivel) + Number(qtdeAtivo);
   const uptadeClient = orderBuilder(codCliente, novoSaldoCustodia, novoSaldoConta);
-  const novaQtdeAtivo = +acao.qtdeDisponivel + qtdeAtivo;
   acoesService.updateByCode(novaQtdeAtivo, codAtivo);
   clientesService.updateClientByCode(uptadeClient);
 };

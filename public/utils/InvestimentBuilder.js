@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const investimentBuilder = (codCliente, codAtivo, qtdeAtivo) => {
     return {
         codCliente,
@@ -7,4 +6,3 @@ const investimentBuilder = (codCliente, codAtivo, qtdeAtivo) => {
         qtdeAtivo,
     };
 };
-exports.default = investimentBuilder;
