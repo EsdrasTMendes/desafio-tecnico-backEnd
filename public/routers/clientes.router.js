@@ -12,6 +12,6 @@ const saque_middleware_1 = __importDefault(require("../middlewares/saque.middlew
 const routers = (0, express_1.Router)();
 routers.post('/clientes', clientes_controller_1.default.createClient); // rota para criar clientes, falta criar middleware
 routers.get('/conta/:codCliente', conta_middleware_1.default, clientes_controller_1.default.getClientByCode, error_middlewares_1.default);
-routers.post('/conta/deposito', deposito_middleware_1.default, clientes_controller_1.default.depositByCode, error_middlewares_1.default); //validação
+routers.post('/conta/deposito', deposito_middleware_1.default, clientes_controller_1.default.depositByCode, error_middlewares_1.default);
 routers.post('/conta/saque', saque_middleware_1.default, clientes_controller_1.default.withdrawByCode, error_middlewares_1.default);
 exports.default = routers;

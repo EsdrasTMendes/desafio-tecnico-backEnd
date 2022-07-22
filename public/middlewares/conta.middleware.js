@@ -17,13 +17,13 @@ const JoiValidations_1 = __importDefault(require("../utils/JoiValidations"));
 const contaMiddleware = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { codCliente } = req.params;
     const { error } = JoiValidations_1.default.JoiValidationsCodClient.validate(req.params);
-    const result = yield clientes_service_1.default.getClientByCode(+codCliente);
-    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('number' || 'greater')) {
+    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('codCliente')) {
         next({
             status: 404,
             response: 'O código do cliente deve ser um número maior que 0.'
         });
     }
+    const result = yield clientes_service_1.default.getClientByCode(+codCliente);
     if (!result) {
         next({
             status: 404,

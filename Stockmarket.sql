@@ -10,8 +10,10 @@ CREATE TABLE acoes(
 CREATE TABLE clientes(
   cod_cliente INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nome_cliente VARCHAR(255) NOT NULL,
+  email_cliente VARCHAR(255) NOT NULL,
   saldo_conta DECIMAL(10,2) NOT NULL,
-  saldo_custodia DECIMAL (10,2) NOT NULL
+  saldo_custodia DECIMAL (10,2) NOT NULL,
+  password_cliente VARCHAR(255) NOT NULL
 );
 CREATE TABLE investimentos(
   id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -35,5 +37,5 @@ INSERT INTO `acoes`(cod_mercado, valor_ativo, qtde_disponivel) values ('VALE3', 
 INSERT INTO `acoes`(cod_mercado, valor_ativo, qtde_disponivel) values ('RAIZ4', 4.42, 500);
 INSERT INTO `acoes`(cod_mercado, valor_ativo, qtde_disponivel) values ('SMTO3', 33.50, 600);
 INSERT INTO `acoes`(cod_mercado, valor_ativo, qtde_disponivel) values ('ARZZ3', 74.40, 200);
-INSERT INTO `clientes`(nome_cliente, saldo_conta, saldo_custodia) values ('Esdras Tenório Mendes', 100.00, 0.00);
-INSERT INTO `clientes`(nome_cliente, saldo_conta, saldo_custodia) values ('Natalia Pedroso Veil', 1000.00, 0.00);
+INSERT INTO `clientes`(nome_cliente, email_cliente, saldo_conta, saldo_custodia, password_cliente) values ('Esdras Tenório Mendes', 'esdrastmendes@gmail.com' 100.00, 0.00, 'senhateste2');
+INSERT INTO `clientes`(nome_cliente, email_cliente, saldo_conta, saldo_custodia, password_cliente) values ('Natalia Pedroso Veil', 'nataliaveil@gmail.com', 1000.00, 0.00, 'senhateste1');
