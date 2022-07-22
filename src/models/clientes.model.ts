@@ -36,10 +36,10 @@ const withdrawAndDepositByCode = async (codCliente:number, valor: number): Promi
     return result
 }
 
-const createClient = async (nomeCliente: string, saldoConta: number, saldoCustodia: number): Promise<ResultSetHeader> => {
+const createClient = async (nomeCliente: string, emailCliente: string, saldoConta: number, saldoCustodia: number, passwordCliente: string): Promise<ResultSetHeader> => {
   const [result] = await connection.execute<ResultSetHeader>(
-    `INSERT INTO clientes(nome_cliente, saldo_conta, saldo_custodia) values (?, ?, ?)`,
-    [nomeCliente, saldoConta, saldoCustodia]
+    `INSERT INTO clientes(nome_cliente, email_cliente, saldo_conta, saldo_custodia, password_cliente) values (?, ?, ?, ?, ?)`,
+    [nomeCliente, emailCliente, saldoConta, saldoCustodia, passwordCliente]
   );
   return result
 }
