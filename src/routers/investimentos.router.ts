@@ -6,11 +6,11 @@ import middlewareVenda from "../middlewares/vendas.middlewares";
 
 const routers = Router();
 
-routers.get('/investimentos',
-controller.getAllInvestiments);
-
 routers.get('/investimentos/:codCliente',
-controller.getInvestimentByClient);
+middlewares.investimentByClient,
+controller.getInvestimentByClient,
+middlewareDeErro
+);
 
 routers.post('/investimentos/comprar',
 middlewares.qtdeAtivosMiddleware,

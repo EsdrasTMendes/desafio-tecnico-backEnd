@@ -14,11 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const acoes_service_1 = __importDefault(require("../service/acoes.service"));
 const clientes_service_1 = __importDefault(require("../service/clientes.service"));
+const investimentos_service_1 = __importDefault(require("../service/investimentos.service"));
 const JoiValidations_1 = __importDefault(require("../utils/JoiValidations"));
 const qtdeAtivosMiddleware = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { codAtivo, qtdeAtivo } = req.body;
     const { qtdeDisponivel, codMercado } = yield acoes_service_1.default.getStockByCode(codAtivo);
-    const { error } = JoiValidations_1.default.validate(req.body);
+    const { error } = JoiValidations_1.default.JoiValidations.validate(req.body);
     if (error) {
         next({ status: 400, response: error.details[0].message });
     }
@@ -34,7 +35,7 @@ const qtdeDisponivelConta = (req, _res, next) => __awaiter(void 0, void 0, void 
     const { codCliente, codAtivo, qtdeAtivo } = req.body;
     const { saldoConta } = yield clientes_service_1.default.getClientByCode(codCliente);
     const { valorAtivo } = yield acoes_service_1.default.getStockByCode(codAtivo);
-    const { error } = JoiValidations_1.default.validate(req.body);
+    const { error } = JoiValidations_1.default.JoiValidations.validate(req.body);
     const valorCompra = Number(qtdeAtivo) * Number(valorAtivo);
     if (error) {
         next({
@@ -50,7 +51,26 @@ const qtdeDisponivelConta = (req, _res, next) => __awaiter(void 0, void 0, void 
     }
     next();
 });
+const investimentByClient = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { codCliente } = req.params;
+    const { error } = JoiValidations_1.default.JoiValidationsCodClient.validate(req.params);
+    const result = yield investimentos_service_1.default.getInvestimentByClient(+codCliente);
+    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('number' || 'greater')) {
+        next({
+            status: 404,
+            response: 'O código do cliente deve ser um número maior que 0.'
+        });
+    }
+    if (result.length === 0) {
+        next({
+            status: 404,
+            response: 'Nenhum investimento encontrado para conta informada.'
+        });
+    }
+    next();
+});
 exports.default = {
     qtdeAtivosMiddleware,
     qtdeDisponivelConta,
+    investimentByClient,
 };

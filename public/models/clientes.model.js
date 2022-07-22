@@ -31,9 +31,14 @@ const withdrawAndDepositByCode = (codCliente, valor) => __awaiter(void 0, void 0
     const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`, [valor, codCliente]);
     return result;
 });
+const createClient = (nomeCliente, saldoConta, saldoCustodia) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`INSERT INTO clientes(nome_cliente, saldo_conta, saldo_custodia) values (?, ?, ?)`, [nomeCliente, saldoConta, saldoCustodia]);
+    return result;
+});
 exports.default = {
     getAllClients,
     getClientsByCode,
     updateClientByCode,
     withdrawAndDepositByCode,
+    createClient,
 };

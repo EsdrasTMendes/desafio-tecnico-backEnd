@@ -12,16 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const acoes_service_1 = __importDefault(require("../service/acoes.service"));
 const clientes_service_1 = __importDefault(require("../service/clientes.service"));
-const orderBuilder_1 = __importDefault(require("./orderBuilder"));
-const buyOrder = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0, void 0, void 0, function* () {
-    const { valorAtivo } = yield acoes_service_1.default.getStockByCode(codAtivo);
-    const { saldoConta } = yield clientes_service_1.default.getClientByCode(codCliente);
-    const saldoCustodia = valorAtivo * qtdeAtivo;
-    const novoSaldo = saldoConta - saldoCustodia;
-    const uptadeClient = (0, orderBuilder_1.default)(codCliente, saldoCustodia, novoSaldo);
-    acoes_service_1.default.updateByCode(qtdeAtivo, codAtivo);
-    clientes_service_1.default.updateClientByCode(uptadeClient);
+const JoiValidations_1 = __importDefault(require("../utils/JoiValidations"));
+const contaMiddleware = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { codCliente } = req.params;
+    const { error } = JoiValidations_1.default.JoiValidationsCodClient.validate(req.params);
+    const result = yield clientes_service_1.default.getClientByCode(+codCliente);
+    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('number' || 'greater')) {
+        next({
+            status: 404,
+            response: 'O código do cliente deve ser um número maior que 0.'
+        });
+    }
+    if (!result) {
+        next({
+            status: 404,
+            response: 'Nenhum usuário encontrado com o código informado.'
+        });
+    }
+    next();
 });
-exports.default = buyOrder;
+exports.default = contaMiddleware;

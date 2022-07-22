@@ -12,7 +12,13 @@ const getStockByCode = async (req: Request, res: Response): Promise<Response> =>
   return res.status(200).json(stock);
 };
 
+const createAssets = async (req: Request, res: Response): Promise<Response> => {
+  const {status, response} = await service.createAssets(req.body);
+  return res.status(status).json(response);
+};
+
 export default {
   getAllStocks,
-  getStockByCode
+  getStockByCode,
+  createAssets
 }

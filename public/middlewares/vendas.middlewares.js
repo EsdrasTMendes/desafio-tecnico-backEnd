@@ -16,7 +16,7 @@ const investimentos_service_1 = __importDefault(require("../service/investimento
 const JoiValidations_1 = __importDefault(require("../utils/JoiValidations"));
 const middlewareVenda = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { qtdeAtivo } = req.body;
-    const { error } = JoiValidations_1.default.validate(req.body);
+    const { error } = JoiValidations_1.default.JoiValidations.validate(req.body);
     if (error) {
         next({ status: 400, response: error.details[0].message });
     }

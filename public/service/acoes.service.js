@@ -24,8 +24,16 @@ const getStockByCode = (codAtivo) => __awaiter(void 0, void 0, void 0, function*
 const updateByCode = (qtdeAtivo, codAtivo) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield acoes_model_1.default.updateByCode(qtdeAtivo, codAtivo);
 });
+const createAssets = ({ codMercado, valorAtivo, qtdeDisponivel }) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield acoes_model_1.default.createAssets(codMercado, valorAtivo, qtdeDisponivel);
+    return {
+        status: 200,
+        response: 'Ativo adidionado com sucesso.'
+    };
+});
 exports.default = {
     getAllStocks,
     getStockByCode,
     updateByCode,
+    createAssets
 };

@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import investimentosService from "../service/investimentos.service";
-import JoiValidations from "../utils/JoiValidations";
+import Joi from "../utils/JoiValidations";
 
 
 
 const middlewareVenda = async (req: Request, _res: Response, next: NextFunction) => {
   const {qtdeAtivo} = req.body;
-  const {error} = JoiValidations.validate(req.body);
+  const {error} = Joi.JoiValidations.validate(req.body);
   if(error) {
     next({ status: 400, response: error.details[0].message })
   }

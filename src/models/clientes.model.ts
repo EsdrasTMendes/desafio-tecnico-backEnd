@@ -1,5 +1,5 @@
 import connection from "./connection";
-import IClientes from "../interfaces/IClientes";
+import IClientes from "../interfaces/IConta";
 import { ResultSetHeader } from "mysql2";
 
 
@@ -36,9 +36,18 @@ const withdrawAndDepositByCode = async (codCliente:number, valor: number): Promi
     return result
 }
 
+const createClient = async (nomeCliente: string, saldoConta: number, saldoCustodia: number): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+    `INSERT INTO clientes(nome_cliente, saldo_conta, saldo_custodia) values (?, ?, ?)`,
+    [nomeCliente, saldoConta, saldoCustodia]
+  );
+  return result
+}
+
 export default {
   getAllClients,
   getClientsByCode,
   updateClientByCode,
   withdrawAndDepositByCode,
+  createClient,
 }

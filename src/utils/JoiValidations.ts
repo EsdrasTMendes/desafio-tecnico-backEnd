@@ -6,4 +6,17 @@ const JoiValidations = Joi.object({
   qtdeAtivo: Joi.number().required(),
 });
 
-export default JoiValidations;
+const JoiValidationsCodClient = Joi.object({
+  codCliente: Joi.number().min(1).required(),
+})
+
+const JoiValidationsSaque = Joi.object({
+  CodCliente: Joi.number().min(1).required(),
+  Valor: Joi.number().min(0.1).required(),
+})
+
+export default {
+  JoiValidations,
+  JoiValidationsCodClient,
+  JoiValidationsSaque,
+};

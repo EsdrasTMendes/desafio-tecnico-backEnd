@@ -15,8 +15,17 @@ const updateByCode = async (qtdeAtivo:number, codAtivo:number) => {
   const result = await model.updateByCode(qtdeAtivo, codAtivo);
 }
 
+const createAssets = async({codMercado, valorAtivo, qtdeDisponivel}: IAcoes) => {
+  const result = await model.createAssets(codMercado, valorAtivo, qtdeDisponivel);
+  return {
+    status: 200,
+    response: 'Ativo adidionado com sucesso.'
+  }
+}
+
 export default {
   getAllStocks,
   getStockByCode,
   updateByCode,
+  createAssets
 }

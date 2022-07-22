@@ -5,13 +5,14 @@ import ativoMiddleware from "../middlewares/ativos.middlewares";
 
 const routers = Router();
 
-routers.get('/acoes', controller.getAllStocks);
+routers.get('/ativos', controller.getAllStocks);
 routers.get(
   '/ativos/:codAtivo',
   ativoMiddleware,
   controller.getStockByCode,
   middlewareDeErro
   );
+routers.post('/acoes', controller.createAssets); //rota que cria ação
 
 
 

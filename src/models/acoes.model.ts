@@ -27,9 +27,18 @@ const updateByCode = async (qtdeDisponivel: number, codAtivo: number): Promise<R
   return result
 }
 
+const createAssets = async (codMercado: string, valorAtivo: number, qtdeDisponivel: number): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+    `INSERT INTO acoes (cod_mercado, valor_ativo, qtde_disponivel) values (?, ?, ?)`,
+    [codMercado, valorAtivo, qtdeDisponivel]
+  );
+  return result
+};
+
 
 export default {
   getAllStocks,
   getStockByCode,
   updateByCode,
+  createAssets
 }

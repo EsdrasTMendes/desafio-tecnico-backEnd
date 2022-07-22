@@ -22,7 +22,12 @@ const getStockByCode = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const stock = yield acoes_service_1.default.getStockByCode(+codAtivo);
     return res.status(200).json(stock);
 });
+const createAssets = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { status, response } = yield acoes_service_1.default.createAssets(req.body);
+    return res.status(status).json(response);
+});
 exports.default = {
     getAllStocks,
-    getStockByCode
+    getStockByCode,
+    createAssets
 };

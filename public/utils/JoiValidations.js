@@ -9,4 +9,15 @@ const JoiValidations = joi_1.default.object({
     codAtivo: joi_1.default.number().required(),
     qtdeAtivo: joi_1.default.number().required(),
 });
-exports.default = JoiValidations;
+const JoiValidationsCodClient = joi_1.default.object({
+    codCliente: joi_1.default.number().min(1).required(),
+});
+const JoiValidationsSaque = joi_1.default.object({
+    CodCliente: joi_1.default.number().min(1).required(),
+    Valor: joi_1.default.number().min(0.1).required(),
+});
+exports.default = {
+    JoiValidations,
+    JoiValidationsCodClient,
+    JoiValidationsSaque,
+};
