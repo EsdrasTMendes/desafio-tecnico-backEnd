@@ -1,5 +1,6 @@
 import connection from "./connection";
 import IClientes from "../interfaces/IConta";
+import IClientJWT from "../interfaces/IClientJWT";
 import { ResultSetHeader } from "mysql2";
 
 
@@ -18,6 +19,15 @@ const getClientsByCode = async (codCliente: number): Promise<IClientes[]> => {
     [codCliente]
   );
   return result as IClientes[]
+};
+
+const getClientByEmail = async(emailCliente: string): Promise<IClientJWT[]> => {
+  const [result] = await connection.execute(
+    `SELECT cod_cliente AS codCliente, email_cliente AS emailCliente, nome_cliente AS nomeCliente, saldo_conta AS saldoConta,
+    saldo_custodia AS saldoCustodia FROM StockmarketXP.clientes WHERE email_cliente = ?`,
+    [emailCliente]
+  )
+  return result as IClientJWT[]
 };
 
 const updateClientByCode = async (codCliente:number, saldoCustodia: number, saldoConta: number): Promise<ResultSetHeader> => {
@@ -50,4 +60,5 @@ export default {
   updateClientByCode,
   withdrawAndDepositByCode,
   createClient,
+  getClientByEmail,
 }

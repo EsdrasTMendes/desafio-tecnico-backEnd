@@ -1,19 +1,44 @@
-// import { SignOptions, sign } from 'jsonwebtoken';
-// import dotenv from 'dotenv';
+import { SignOptions, sign, verify } from 'jsonwebtoken';
+import IClientJWT from '../interfaces/IClientJWT';
+import dotenv from 'dotenv';
+dotenv.config();
 
-// dotenv.config();
+const SECRET: string = process.env.JWT_SECRET || 'processenvSecret';
 
-// const jwtConfig: SignOptions = {
-//   expiresIn: '15m',
-//   algorithm: 'HS256',
-// };
+const jwtConfig: SignOptions = {
+  expiresIn: '15m',
+  algorithm: 'HS256',
+};
 
-// const generateJWTToken = () => sign();
+const verifyToken = async(token: string|undefined) => {
+  if(!token|| token === undefined) {
+    return {
+      status: 401, 
+      response: 'Token not found',
+      error: true, 
+    }
+  }
+  try{
+    const validation =  verify(token, SECRET, jwtConfig);
+    return {
+      status: 200,
+      response: validation,
+      error: false
+    }
+  } catch(e) {
+    return {
+      status: 200,
+      response: 'Token expirado ou inválido',
+      error: true
+    }
+  }
+}
+
+const generateJWTToken = (client: Omit<IClientJWT, 
+  'passwordCliente'| 'saldoCustodia'| 'saldoConta'>) => sign(client, SECRET, jwtConfig);
 
 
-// Criar coluna password em clients
-// criar a rota de autenticação do JWT 
-// criar middleware de validação do token
-// começar testes e readme
-// deploy da API
-// Documentação Swagger
+  export default {
+    generateJWTToken,
+    verifyToken,
+  }

@@ -1,8 +1,8 @@
 import model from '../models/clientes.model'
 import IConta from '../interfaces/IConta';
-import IClient from '../interfaces/IClient';
 import { ResultSetHeader } from 'mysql2';
 import IMovimentacoes from '../interfaces/IMovimentacoes';
+import IClientJWT from '../interfaces/IClientJWT';
 
 const getAllClients = async (): Promise<IConta[]> => {
   const result = await model.getAllClients();
@@ -31,13 +31,19 @@ const depositByCode = async ({CodCliente, Valor} : IMovimentacoes): Promise<Resu
   return result;
 };
 
-const createClient = async ({nomeCliente, saldoConta, saldoCustodia}: IClient) => {
-  const client = await model.createClient(nomeCliente, saldoConta, saldoCustodia);
+const createClient = async ({nomeCliente, emailCliente, saldoConta, saldoCustodia, passwordCliente}: IClientJWT) => {
+  const client = await model.createClient(nomeCliente, emailCliente, saldoConta, saldoCustodia, passwordCliente);
   return {
     status: 200, 
     response: 'Cliente criado com sucesso'
   };
 };
+
+const getClientByEmail = async ({emailCliente}: IClientJWT): Promise<IClientJWT> => {
+  const [client] = await model.getClientByEmail(emailCliente);
+  return client
+}
+
 
 export default {
   getAllClients,
@@ -45,5 +51,6 @@ export default {
   updateClientByCode,
   withdrawByCode,
   depositByCode,
-  createClient
+  createClient,
+  getClientByEmail,
 }

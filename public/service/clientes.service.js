@@ -37,12 +37,16 @@ const depositByCode = ({ CodCliente, Valor }) => __awaiter(void 0, void 0, void 
     const result = yield clientes_model_1.default.withdrawAndDepositByCode(CodCliente, newValueConta);
     return result;
 });
-const createClient = ({ nomeCliente, saldoConta, saldoCustodia }) => __awaiter(void 0, void 0, void 0, function* () {
-    const client = yield clientes_model_1.default.createClient(nomeCliente, saldoConta, saldoCustodia);
+const createClient = ({ nomeCliente, emailCliente, saldoConta, saldoCustodia, passwordCliente }) => __awaiter(void 0, void 0, void 0, function* () {
+    const client = yield clientes_model_1.default.createClient(nomeCliente, emailCliente, saldoConta, saldoCustodia, passwordCliente);
     return {
         status: 200,
         response: 'Cliente criado com sucesso'
     };
+});
+const getClientByEmail = ({ emailCliente }) => __awaiter(void 0, void 0, void 0, function* () {
+    const [client] = yield clientes_model_1.default.getClientByEmail(emailCliente);
+    return client;
 });
 exports.default = {
     getAllClients,
@@ -50,5 +54,6 @@ exports.default = {
     updateClientByCode,
     withdrawByCode,
     depositByCode,
-    createClient
+    createClient,
+    getClientByEmail,
 };
