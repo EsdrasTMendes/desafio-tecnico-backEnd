@@ -23,13 +23,18 @@ const getClientsByCode = (codCliente) => __awaiter(void 0, void 0, void 0, funct
     saldo_custodia AS saldoCustodia FROM StockmarketXP.clientes WHERE cod_cliente = ?`, [codCliente]);
     return result;
 });
-const getClientByEmail = (emailCliente) => __awaiter(void 0, void 0, void 0, function* () {
+const getClientByEmailAndPassword = (emailCliente, passwordCliente) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`SELECT cod_cliente AS codCliente, email_cliente AS emailCliente, nome_cliente AS nomeCliente, saldo_conta AS saldoConta,
-    saldo_custodia AS saldoCustodia FROM StockmarketXP.clientes WHERE email_cliente = ?`, [emailCliente]);
+    saldo_custodia AS saldoCustodia FROM StockmarketXP.clientes WHERE email_cliente = ? AND password_cliente = ?`, [emailCliente, passwordCliente]);
     return result;
 });
 const updateClientByCode = (codCliente, saldoCustodia, saldoConta) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_custodia = ?, saldo_conta = ? WHERE cod_cliente = ?`, [saldoCustodia, saldoConta, codCliente]);
+    return result;
+});
+const getClientByEmail = (emailCliente) => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield connection_1.default.execute(`SELECT cod_cliente AS codCliente, email_cliente AS emailCliente, nome_cliente AS nomeCliente, saldo_conta AS saldoConta,
+    saldo_custodia AS saldoCustodia FROM StockmarketXP.clientes WHERE email_cliente = ? `, [emailCliente]);
     return result;
 });
 const withdrawAndDepositByCode = (codCliente, valor) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,5 +51,6 @@ exports.default = {
     updateClientByCode,
     withdrawAndDepositByCode,
     createClient,
+    getClientByEmailAndPassword,
     getClientByEmail,
 };

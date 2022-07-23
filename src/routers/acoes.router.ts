@@ -2,17 +2,19 @@ import { Router } from "express";
 import controller from '../controller/acoes.controller';
 import middlewareDeErro from "../middlewares/error.middlewares";
 import ativoMiddleware from "../middlewares/ativos.middlewares";
+import tokenMiddleware from "../middlewares/token.middleware";
 
 const routers = Router();
 
 routers.get('/ativos', controller.getAllStocks);
 routers.get(
   '/ativos/:codAtivo',
+  tokenMiddleware,
   ativoMiddleware,
   controller.getStockByCode,
   middlewareDeErro
-  );
-routers.post('/acoes', controller.createAssets); //rota que cria ação
+  ); //precisa estar autenticado
+routers.post('/acoes', controller.createAssets); 
 
 
 

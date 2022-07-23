@@ -6,7 +6,7 @@ dotenv.config();
 const SECRET: string = process.env.JWT_SECRET || 'processenvSecret';
 
 const jwtConfig: SignOptions = {
-  expiresIn: '15m',
+  expiresIn: 600,
   algorithm: 'HS256',
 };
 
@@ -19,19 +19,19 @@ const verifyToken = async(token: string|undefined) => {
     }
   }
   try{
-    const validation =  verify(token, SECRET, jwtConfig);
+    const validation =  await verify(token, SECRET, jwtConfig) as any;
     return {
       status: 200,
       response: validation,
       error: false
     }
   } catch(e) {
-    return {
-      status: 200,
-      response: 'Token expirado ou inválido',
-      error: true
+      return {
+        status: 401,
+        response: 'Token expirado ou inválido',
+        error: true
+      }
     }
-  }
 }
 
 const generateJWTToken = (client: Omit<IClientJWT, 

@@ -44,8 +44,12 @@ const createClient = ({ nomeCliente, emailCliente, saldoConta, saldoCustodia, pa
         response: 'Cliente criado com sucesso'
     };
 });
-const getClientByEmail = ({ emailCliente }) => __awaiter(void 0, void 0, void 0, function* () {
-    const [client] = yield clientes_model_1.default.getClientByEmail(emailCliente);
+const getClientByEmailAndPassword = (emailCliente, passwordCliente) => __awaiter(void 0, void 0, void 0, function* () {
+    const [client] = yield clientes_model_1.default.getClientByEmailAndPassword(emailCliente, passwordCliente);
+    return client;
+});
+const getClientByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const [client] = yield clientes_model_1.default.getClientByEmail(email);
     return client;
 });
 exports.default = {
@@ -55,5 +59,6 @@ exports.default = {
     withdrawByCode,
     depositByCode,
     createClient,
+    getClientByEmailAndPassword,
     getClientByEmail,
 };

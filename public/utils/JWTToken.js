@@ -17,7 +17,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const SECRET = process.env.JWT_SECRET || 'processenvSecret';
 const jwtConfig = {
-    expiresIn: '15m',
+    expiresIn: 600,
     algorithm: 'HS256',
 };
 const verifyToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,7 +29,8 @@ const verifyToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
         };
     }
     try {
-        const validation = (0, jsonwebtoken_1.verify)(token, SECRET, jwtConfig);
+        const validation = yield (0, jsonwebtoken_1.verify)(token, SECRET, jwtConfig);
+        console.log(validation);
         return {
             status: 200,
             response: validation,
@@ -38,7 +39,7 @@ const verifyToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (e) {
         return {
-            status: 200,
+            status: 401,
             response: 'Token expirado ou inválido',
             error: true
         };

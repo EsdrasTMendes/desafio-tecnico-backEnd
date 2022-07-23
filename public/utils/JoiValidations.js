@@ -17,12 +17,12 @@ const JoiValidationsSaque = joi_1.default.object({
     Valor: joi_1.default.number().min(0.1).required(),
 });
 const JoiValidationsAuth = joi_1.default.object({
-    emailClient: joi_1.default.string().regex(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i).required(),
-    passwordClient: joi_1.default.string().min(8).required(),
+    email: joi_1.default.string().regex(RegExp(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.?([a-z]+)?$/i)).required(),
+    password: joi_1.default.string().min(8).required(),
 });
 const JoiCreateClient = joi_1.default.object({
     nomeCliente: joi_1.default.string().min(3).required(),
-    emailCliente: joi_1.default.string().regex(RegExp(/^[a-z0-9.]+@[a-z0-9]+\.([a-z]+)?$/i)).required(),
+    emailCliente: joi_1.default.string().regex(RegExp(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.?([a-z]+)?$/i)).required(),
     saldoConta: joi_1.default.number().required(),
     saldoCustodia: joi_1.default.number().required(),
     passwordCliente: joi_1.default.string().min(8).required(),

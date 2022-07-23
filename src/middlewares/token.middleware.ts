@@ -3,7 +3,7 @@ import JWTToken from "../utils/JWTToken";
 
 const tokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
-  const {error, response, status, } = await JWTToken.verifyToken(token);
+  const {error, response, status } = await JWTToken.verifyToken(token);
   if(error) {
     next({
       status,
@@ -13,3 +13,5 @@ const tokenMiddleware = async (req: Request, res: Response, next: NextFunction) 
   res.locals.payload = response;
   next()
 }
+
+export default tokenMiddleware;

@@ -39,9 +39,14 @@ const createClient = async ({nomeCliente, emailCliente, saldoConta, saldoCustodi
   };
 };
 
-const getClientByEmail = async ({emailCliente}: IClientJWT): Promise<IClientJWT> => {
-  const [client] = await model.getClientByEmail(emailCliente);
+const getClientByEmailAndPassword = async (emailCliente: string, passwordCliente: string): Promise<IClientJWT> => {
+  const [client] = await model.getClientByEmailAndPassword(emailCliente, passwordCliente);
   return client
+}
+
+const getClientByEmail = async (email:string): Promise<IClientJWT> => {
+  const [client] = await model.getClientByEmail(email);
+  return client;
 }
 
 
@@ -52,5 +57,6 @@ export default {
   withdrawByCode,
   depositByCode,
   createClient,
+  getClientByEmailAndPassword,
   getClientByEmail,
 }

@@ -12,17 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const clientes_service_1 = __importDefault(require("./clientes.service"));
 const JWTToken_1 = __importDefault(require("../utils/JWTToken"));
-const tokenMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = req.headers.authorization;
-    const { error, response, status } = yield JWTToken_1.default.verifyToken(token);
-    if (error) {
-        next({
-            status,
-            response
-        });
-    }
-    res.locals.payload = response;
-    next();
+const authentication = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
+    const { codCliente, nomeCliente, emailCliente } = yield clientes_service_1.default.getClientByEmailAndPassword(email, password);
+    const clienteDataValues = {
+        codCliente,
+        nomeCliente,
+        emailCliente,
+    };
+    const token = JWTToken_1.default.generateJWTToken(clienteDataValues);
+    return {
+        status: 200,
+        response: token
+    };
 });
-exports.default = tokenMiddleware;
+exports.default = authentication;

@@ -4,16 +4,19 @@ import contaMiddleware from "../middlewares/conta.middleware";
 import middlewareDeposito from "../middlewares/deposito.middleware";
 import middlewareDeErro from "../middlewares/error.middlewares";
 import middlewareSaque from "../middlewares/saque.middleware";
+import authMiddleware from "../middlewares/auth.middleware";
 import createClientMiddleware from "../middlewares/createCliente.middleware";
+import authentication from "../controller/authcontroller";
+import tokenMiddleware from "../middlewares/token.middleware";
 
 
 const routers = Router();
-routers.post('auth/client', ) 
-routers.post('/clientes', createClientMiddleware, controller.createClient);// rota para criar clientes, falta criar middleware
+routers.post('/clientes', createClientMiddleware, controller.createClient, middlewareDeErro);
+routers.post('/login', authMiddleware, authentication, middlewareDeErro);
 
-routers.get('/conta/:codCliente',contaMiddleware, controller.getClientByCode, middlewareDeErro);
-routers.post('/conta/deposito', middlewareDeposito, controller.depositByCode, middlewareDeErro); 
-routers.post('/conta/saque', middlewareSaque, controller.withdrawByCode, middlewareDeErro); 
+routers.get('/conta/:codCliente', tokenMiddleware, contaMiddleware, controller.getClientByCode, middlewareDeErro);
+routers.post('/conta/deposito',tokenMiddleware, middlewareDeposito, controller.depositByCode, middlewareDeErro); 
+routers.post('/conta/saque',tokenMiddleware, middlewareSaque, controller.withdrawByCode, middlewareDeErro); 
 
 
 

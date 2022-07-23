@@ -14,9 +14,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const JoiValidations_1 = __importDefault(require("../utils/JoiValidations"));
 const createClientMiddleware = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { emailCliente, passwordCliente } = req.body;
     const { error } = JoiValidations_1.default.JoiCreateClient.validate(req.body);
-    console.log(error);
+    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('nomeCliente')) {
+        next({
+            status: 400,
+            response: 'Nome de cliente inválido'
+        });
+    }
+    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('emailCliente')) {
+        next({
+            status: 400,
+            response: 'Email inválido'
+        });
+    }
+    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('saldoConta' || 'saldoCliente')) {
+        next({
+            status: 400,
+            response: 'Saldo da conta e saldo de custodia devem ser um número válido'
+        });
+    }
+    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('passwordCliente')) {
+        next({
+            status: 400,
+            response: 'Password deve ser de no mínimo 8 caracteres'
+        });
+    }
     next();
 });
 exports.default = createClientMiddleware;
