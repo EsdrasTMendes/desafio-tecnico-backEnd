@@ -5,7 +5,7 @@
   "main": "public/app.js",
   "scripts": {
     "start": "tsc && node public/app.js",
-    "test": "npm test",
+    "test": "npx jest",
     "dev": "tsc && node public/app.js"
   },
   "repository": {
