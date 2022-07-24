@@ -4,11 +4,6 @@ import IcreateInvestiment from '../interfaces/ICreateInvestiment';
 import buyOrdersUpdateValues from '../utils/buyOrdersUpdateValues';
 import sellOrdersUpdateValues from '../utils/sellOrdersUpdateValues';
 
-// const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
-//   const result = await model.getAllInvestiments();
-//   return result
-// };
-
 const getInvestimentByClient = async (codCliente: number): Promise <IInvestimentos[]> => {
   const result = await model.getInvestimentByClient(codCliente)
   return result
@@ -22,7 +17,7 @@ const getInvestimentByClientAndAsset = async ({codCliente, codAtivo} : IInvestim
 const createInvestiment = async ({ codCliente, codAtivo, qtdeAtivo }: IInvestimentos): Promise <IcreateInvestiment> => {
   const [investiment] = await model.getInvestimentByClientAndAsset(codCliente, codAtivo);
   if(!investiment) {
-    const {insertId} = await model.createInvestiment(codCliente, codAtivo, qtdeAtivo);
+    const {message} = await model.createInvestiment(codCliente, codAtivo, qtdeAtivo);
     buyOrdersUpdateValues(codCliente, codAtivo, qtdeAtivo);
     return {
       status: 200,

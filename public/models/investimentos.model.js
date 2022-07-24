@@ -13,14 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("./connection"));
-// const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
-//   const [result] = await connection.execute(
-//     `SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
-//     qtd_ativo AS qtdeAtivo FROM 
-//     StockmarketXP.investimentos`,
-//   )
-//   return result as IInvestimentos[];
-// };
 const getInvestimentByClient = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`SELECT
     i.cod_cliente AS CodCliente,

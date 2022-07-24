@@ -3,16 +3,6 @@ import IInvestimentos from "../interfaces/IInvestimentos";
 import IUpdate from "../interfaces/IUpdate";
 import { ResultSetHeader } from "mysql2";
 
-
-// const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
-//   const [result] = await connection.execute(
-//     `SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
-//     qtd_ativo AS qtdeAtivo FROM 
-//     StockmarketXP.investimentos`,
-//   )
-//   return result as IInvestimentos[];
-// };
-
 const getInvestimentByClient = async (codCliente: number): Promise<IInvestimentos[]> => {
   const [result] = await connection.execute(
     `SELECT

@@ -8,7 +8,7 @@ const getClientByCode = async (codCliente: number): Promise<IConta> => {
   const [client] = await model.getClientsByCode(codCliente);
   return client;
 };
-const updateClientByCode = async ({ codCliente, saldoConta, saldoCustodia}: IConta): Promise<IUpdate|undefined> => {
+const updateClientByCode = async ({ codCliente, saldoConta, saldoCustodia}: IConta): Promise<IUpdate> => {
   const result = await model.updateClientByCode(codCliente, saldoConta, saldoCustodia )
   return result;
 }
