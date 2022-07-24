@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import model from '../models/clientes.model';
 import sinon from 'sinon';
 
-describe('Testa a função getClientsByCode', () => {
+describe('Testa se a função getClientsByCode', () => {
   before(() => {
     const ExpectReturn = [{
         codCliente: 1,
@@ -29,21 +29,21 @@ describe('Testa a função getClientsByCode', () => {
       expect(nomeCliente).to.be.equals('Esdras Tenório Mendes')
     });
 
+    it('contém o saldo da conta do cliente', async () => {
+      const [cliente] = await model.getClientsByCode(1);
+      const {saldoConta} = cliente;
+      expect(saldoConta).to.be.equals(100);
+    });
+
     it('contém o saldo de custodia do cliente', async () => {
       const [cliente] = await model.getClientsByCode(1);
       const {saldoCustodia} = cliente;
       expect(saldoCustodia).to.be.equals(0);
     });
-
-    it('contém um objeto com as informações dos clientes', async () => {
-      const [cliente] = await model.getClientsByCode(1);
-      const {codCliente} = cliente;
-    });
-    })
-    
+  });
 });
 
-describe('Testa a função updateClientByCode', () => {
+describe('Testa se a função updateClientByCode', () => {
   before(() => {
     const ExpectReturn = {
     message: 'Cliente atualizado com sucesso'
@@ -61,7 +61,7 @@ describe('Testa a função updateClientByCode', () => {
   });
 });
 
-describe('Testa a função withdrawAndDepositByCode', () => {
+describe('Testa se a função withdrawAndDepositByCode', () => {
   before(() => {
     const ExpectReturn = {
     message: 'Operação realizada com sucesso'
@@ -79,7 +79,7 @@ describe('Testa a função withdrawAndDepositByCode', () => {
   });
 });
 
-describe('Testa a função createClient', () => {
+describe('Testa se a função createClient', () => {
   before(() => {
     const ExpectReturn = {
     message: 'Cadastro criado com sucesso.'
@@ -97,7 +97,7 @@ describe('Testa a função createClient', () => {
   });
 });
 
-describe('Testa a função getClientByEmailAndPassword', () => {
+describe('Testa se a função getClientByEmailAndPassword', () => {
   before(() => {
     const ExpectReturn = [{
       codCliente: 1,
@@ -119,41 +119,41 @@ describe('Testa a função getClientByEmailAndPassword', () => {
       const [cliente] = await model.getClientByEmailAndPassword('Esdras Tenório Mendes', 'senhateste1');
         const {codCliente} = cliente;
         expect(codCliente).to.be.equals(1);
-    });
+      });
   
       it('contém o nome do cliente ', async () => {
         const [cliente] = await model.getClientByEmailAndPassword('Esdras Tenório Mendes', 'senhateste1');
         const {nomeCliente} = cliente;
         expect(nomeCliente).to.be.equals('Esdras Tenório Mendes');
-    });
+      });
   
-    it('contém o saldo da Conta do cliente ', async () => {
+      it('contém o saldo da Conta do cliente ', async () => {
         const [cliente] = await model.getClientByEmailAndPassword('Esdras Tenório Mendes', 'senhateste1');
         const {saldoConta} = cliente;
         expect(saldoConta).to.be.equals(10);
-    });
+      });
   
-    it('contém o saldo de Custodia da Conta do cliente ', async () => {
+      it('contém o saldo de Custodia da Conta do cliente ', async () => {
         const [cliente] = await model.getClientByEmailAndPassword('Esdras Tenório Mendes', 'senhateste1');
         const {saldoCustodia} = cliente;
         expect(saldoCustodia).to.be.equals(0);
-    });
+      });
   
-    it('contém o email de cadastro do cliente ', async () => {
+      it('contém o email de cadastro do cliente ', async () => {
         const [cliente] = await model.getClientByEmailAndPassword('Esdras Tenório Mendes', 'senhateste1');
         const {emailCliente} = cliente;
         expect(emailCliente).to.be.equals('esdrastmendes@gmail.com');
-    });
+      });
   
       it('contém a senha de cadastro do cliente ', async () => {
         const [cliente] = await model.getClientByEmailAndPassword('Esdras Tenório Mendes', 'senhateste1');
         const {passwordCliente} = cliente;
         expect(passwordCliente).to.be.equals('123456789');
     });
-    })
+  });
 });
 
-describe('Testa a função getClientByEmail', () => {
+describe('Testa se a função getClientByEmail', () => {
   before(() => {
     const ExpectReturn = [{
       codCliente: 1,
@@ -175,36 +175,36 @@ describe('Testa a função getClientByEmail', () => {
       const [cliente] = await model.getClientByEmail('esdrastmendes@gmail.com');
       const {codCliente} = cliente;
       expect(codCliente).to.be.equals(1);
-  });
+    });
 
     it('contém o nome do cliente ', async () => {
       const [cliente] = await model.getClientByEmail('esdrastmendes@gmail.com');
       const {nomeCliente} = cliente;
       expect(nomeCliente).to.be.equals('Esdras Tenório Mendes');
-  });
+    });
 
     it('contém o saldo da Conta do cliente ', async () => {
       const [cliente] = await model.getClientByEmail('esdrastmendes@gmail.com');
       const {saldoConta} = cliente;
       expect(saldoConta).to.be.equals(10);
-  });
+    });
 
-  it('contém o saldo de Custodia da Conta do cliente ', async () => {
+    it('contém o saldo de Custodia da Conta do cliente ', async () => {
       const [cliente] = await model.getClientByEmail('esdrastmendes@gmail.com');
       const {saldoCustodia} = cliente;
       expect(saldoCustodia).to.be.equals(0);
-  });
+    });
 
-  it('contém o email de cadastro do cliente ', async () => {
+    it('contém o email de cadastro do cliente ', async () => {
       const [cliente] = await model.getClientByEmail('esdrastmendes@gmail.com');
       const {emailCliente} = cliente;
       expect(emailCliente).to.be.equals('esdrastmendes@gmail.com');
-  });
+    });
 
-  it('contém a senha de cadastro do cliente ', async () => {
+    it('contém a senha de cadastro do cliente ', async () => {
       const [cliente] = await model.getClientByEmail('esdrastmendes@gmail.com');
       const {passwordCliente} = cliente;
       expect(passwordCliente).to.be.equals('123456789');
+    });
   });
-  })
 });

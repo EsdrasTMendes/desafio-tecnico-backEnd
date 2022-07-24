@@ -24,11 +24,15 @@ const getStockByCode = (codAtivo) => __awaiter(void 0, void 0, void 0, function*
 });
 const updateByCode = (qtdeDisponivel, codAtivo) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`UPDATE acoes SET qtde_disponivel = ? WHERE cod_ativo = ?`, [qtdeDisponivel, codAtivo]);
-    return result;
+    return {
+        message: 'Operação realizada com sucesso'
+    };
 });
 const createAssets = (codMercado, valorAtivo, qtdeDisponivel) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`INSERT INTO acoes (cod_mercado, valor_ativo, qtde_disponivel) values (?, ?, ?)`, [codMercado, valorAtivo, qtdeDisponivel]);
-    return result;
+    return {
+        message: 'Ativo adicionado com sucesso'
+    };
 });
 exports.default = {
     getAllStocks,

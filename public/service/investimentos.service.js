@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const investimentos_model_1 = __importDefault(require("../models/investimentos.model"));
 const buyOrdersUpdateValues_1 = __importDefault(require("../utils/buyOrdersUpdateValues"));
 const sellOrdersUpdateValues_1 = __importDefault(require("../utils/sellOrdersUpdateValues"));
-const getAllInvestiments = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield investimentos_model_1.default.getAllInvestiments();
-    return result;
-});
+// const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
+//   const result = await model.getAllInvestiments();
+//   return result
+// };
 const getInvestimentByClient = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield investimentos_model_1.default.getInvestimentByClient(codCliente);
     return result;
@@ -82,7 +82,6 @@ const sellInvestiment = ({ codCliente, codAtivo, qtdeAtivo }) => __awaiter(void 
     };
 });
 exports.default = {
-    getAllInvestiments,
     createInvestiment,
     getInvestimentByClient,
     getInvestimentByClientAndAsset,

@@ -65,7 +65,6 @@ const deleteInvestiment = async (codCliente: number, codAtivo: number): Promise<
 };
 
 export default {
-  getAllInvestiments,
   createInvestiment,
   getInvestimentByClient,
   getInvestimentByClientAndAsset,

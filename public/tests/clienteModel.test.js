@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 const clientes_model_1 = __importDefault(require("../models/clientes.model"));
 const sinon_1 = __importDefault(require("sinon"));
-describe('Testa a função getClientsByCode', () => {
+describe('Testa se a função getClientsByCode', () => {
     before(() => {
         const ExpectReturn = [{
                 codCliente: 1,
@@ -39,18 +39,19 @@ describe('Testa a função getClientsByCode', () => {
             const { nomeCliente } = cliente;
             (0, chai_1.expect)(nomeCliente).to.be.equals('Esdras Tenório Mendes');
         }));
+        it('contém o saldo da conta do cliente', () => __awaiter(void 0, void 0, void 0, function* () {
+            const [cliente] = yield clientes_model_1.default.getClientsByCode(1);
+            const { saldoConta } = cliente;
+            (0, chai_1.expect)(saldoConta).to.be.equals(100);
+        }));
         it('contém o saldo de custodia do cliente', () => __awaiter(void 0, void 0, void 0, function* () {
             const [cliente] = yield clientes_model_1.default.getClientsByCode(1);
             const { saldoCustodia } = cliente;
             (0, chai_1.expect)(saldoCustodia).to.be.equals(0);
         }));
-        it('contém um objeto com as informações dos clientes', () => __awaiter(void 0, void 0, void 0, function* () {
-            const [cliente] = yield clientes_model_1.default.getClientsByCode(1);
-            const { codCliente } = cliente;
-        }));
     });
 });
-describe('Testa a função updateClientByCode', () => {
+describe('Testa se a função updateClientByCode', () => {
     before(() => {
         const ExpectReturn = {
             message: 'Cliente atualizado com sucesso'
@@ -65,7 +66,7 @@ describe('Testa a função updateClientByCode', () => {
         (0, chai_1.expect)(message).to.be.equals('Cliente atualizado com sucesso');
     }));
 });
-describe('Testa a função withdrawAndDepositByCode', () => {
+describe('Testa se a função withdrawAndDepositByCode', () => {
     before(() => {
         const ExpectReturn = {
             message: 'Operação realizada com sucesso'
@@ -80,7 +81,7 @@ describe('Testa a função withdrawAndDepositByCode', () => {
         (0, chai_1.expect)(message).to.be.equals('Operação realizada com sucesso');
     }));
 });
-describe('Testa a função createClient', () => {
+describe('Testa se a função createClient', () => {
     before(() => {
         const ExpectReturn = {
             message: 'Cadastro criado com sucesso.'
@@ -95,7 +96,7 @@ describe('Testa a função createClient', () => {
         (0, chai_1.expect)(message).to.be.equals('Cadastro criado com sucesso.');
     }));
 });
-describe('Testa a função getClientByEmailAndPassword', () => {
+describe('Testa se a função getClientByEmailAndPassword', () => {
     before(() => {
         const ExpectReturn = [{
                 codCliente: 1,
@@ -143,7 +144,7 @@ describe('Testa a função getClientByEmailAndPassword', () => {
         }));
     });
 });
-describe('Testa a função getClientByEmail', () => {
+describe('Testa se a função getClientByEmail', () => {
     before(() => {
         const ExpectReturn = [{
                 codCliente: 1,

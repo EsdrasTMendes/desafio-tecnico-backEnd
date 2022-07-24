@@ -52,7 +52,6 @@ const deleteInvestiment = (codCliente, codAtivo) => __awaiter(void 0, void 0, vo
     return result;
 });
 exports.default = {
-    getAllInvestiments,
     createInvestiment,
     getInvestimentByClient,
     getInvestimentByClientAndAsset,
