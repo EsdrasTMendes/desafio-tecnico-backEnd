@@ -13,8 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const JoiValidations_1 = __importDefault(require("../utils/JoiValidations"));
+const clientes_model_1 = __importDefault(require("../models/clientes.model"));
 const createClientMiddleware = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { error } = JoiValidations_1.default.JoiCreateClient.validate(req.body);
+    const clientExist = yield clientes_model_1.default.getClientByEmail(req.body.emailCliente);
+    if (clientExist) {
+        next({
+            status: 400,
+            response: 'email ou cliente já cadastrados'
+        });
+    }
     if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('nomeCliente')) {
         next({
             status: 400,

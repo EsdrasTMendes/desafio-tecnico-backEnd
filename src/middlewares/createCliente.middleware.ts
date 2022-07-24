@@ -1,8 +1,16 @@
 import { Request, Response, NextFunction } from "express";
 import Joi from "../utils/JoiValidations";
+import clientesModel from "../models/clientes.model";
 
 const createClientMiddleware = async (req: Request, _res: Response, next: NextFunction) => {
   const {error} = Joi.JoiCreateClient.validate(req.body);
+  const clientExist = await clientesModel.getClientByEmail(req.body.emailCliente);
+  if(clientExist) {
+    next({
+      status: 400,
+      response: 'email já possui cadastro'
+    })
+  }
   if(error?.details[0].message.includes('nomeCliente')) {
     next({
       status: 400,
