@@ -1,6 +1,7 @@
 import model from '../models/investimentos.model'
 import IInvestimentos from '../interfaces/IInvestimentos';
 import IcreateInvestiment from '../interfaces/ICreateInvestiment';
+import IInvestimentosCreate from '../interfaces/IIvestimentCreate';
 import buyOrdersUpdateValues from '../utils/buyOrdersUpdateValues';
 import sellOrdersUpdateValues from '../utils/sellOrdersUpdateValues';
 
@@ -14,7 +15,7 @@ const getInvestimentByClientAndAsset = async ({codCliente, codAtivo} : IInvestim
   return result;
 };
 
-const createInvestiment = async ({ codCliente, codAtivo, qtdeAtivo }: IInvestimentos): Promise <IcreateInvestiment> => {
+const createInvestiment = async ({ codCliente, codAtivo, qtdeAtivo }: IInvestimentosCreate): Promise <IcreateInvestiment> => {
   const [investiment] = await model.getInvestimentByClientAndAsset(codCliente, codAtivo);
   if(!investiment) {
     const {message} = await model.createInvestiment(codCliente, codAtivo, qtdeAtivo);
