@@ -1,16 +1,17 @@
 import connection from "./connection";
 import IInvestimentos from "../interfaces/IInvestimentos";
+import IUpdate from "../interfaces/IUpdate";
 import { ResultSetHeader } from "mysql2";
 
 
-const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
-  const [result] = await connection.execute(
-    `SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
-    qtd_ativo AS qtdeAtivo FROM 
-    StockmarketXP.investimentos`,
-  )
-  return result as IInvestimentos[];
-};
+// const getAllInvestiments = async (): Promise<IInvestimentos[]> => {
+//   const [result] = await connection.execute(
+//     `SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
+//     qtd_ativo AS qtdeAtivo FROM 
+//     StockmarketXP.investimentos`,
+//   )
+//   return result as IInvestimentos[];
+// };
 
 const getInvestimentByClient = async (codCliente: number): Promise<IInvestimentos[]> => {
   const [result] = await connection.execute(
@@ -39,29 +40,35 @@ const getInvestimentByClientAndAsset = async (codCliente: number, codAtivo: numb
   return result as IInvestimentos[]
 }
 
-const updateInvestiment = async (qtdeAtivo: number, id: number): Promise<ResultSetHeader> => {
+const updateInvestiment = async (qtdeAtivo: number, id: number): Promise<IUpdate> => {
   const [result] = await connection.execute<ResultSetHeader>(
     `UPDATE investimentos SET qtd_ativo = ? WHERE id= ?`,
     [qtdeAtivo, id]
   )
-  return result
+  return {
+    message: 'Operação realizada com sucesso'
+  }
 }
 
-const createInvestiment = async (codCliente: number, codAtivo: number, qtdeAtivo: number): Promise<ResultSetHeader> => {
+const createInvestiment = async (codCliente: number, codAtivo: number, qtdeAtivo: number): Promise<IUpdate> => {
   const [result] = await connection.execute<ResultSetHeader>(
     `INSERT INTO investimentos(cod_cliente, cod_ativo, qtd_ativo)
     VALUES (?,?,?)`,
     [codCliente, codAtivo, qtdeAtivo]
   )
-  return result
+  return {
+    message: 'Operação realizada com sucesso'
+  }
 };
 
-const deleteInvestiment = async (codCliente: number, codAtivo: number): Promise<ResultSetHeader> => {
+const deleteInvestiment = async (codCliente: number, codAtivo: number): Promise<IUpdate> => {
   const [result] = await connection.execute<ResultSetHeader>(
     `DELETE FROM investimentos WHERE cod_cliente = ? AND cod_ativo = ?`,
     [codCliente, codAtivo]
   );
-  return result
+  return {
+    message: 'Operação realizada com sucesso'
+  }
 };
 
 export default {
