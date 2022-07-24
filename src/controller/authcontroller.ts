@@ -3,7 +3,7 @@ import authenticationService from "../service/authentication.service";
 
 const authentication = async (req: Request, res: Response): Promise<Response> => {
   const {email, password} = req.body;
-  const {status, response} = await authenticationService(email, password);
+  const {status, response} = await authenticationService.authentication(email, password);
   return res.status(status).json({token: response})
 }
 

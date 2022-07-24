@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 const investimentos_service_1 = __importDefault(require("../service/investimentos.service"));
 const sinon_1 = __importDefault(require("sinon"));
-// createInvestiment
 describe('Testa se a função createInvestiment', () => {
     before(() => {
         const ExpectReturn = {
@@ -55,7 +54,6 @@ describe('Testa se a função createInvestiment', () => {
         }));
     });
 });
-// getInvestimentByClient
 describe('Testa se a função getInvestimentByClient', () => {
     before(() => {
         const ExpectReturn = [
@@ -90,7 +88,6 @@ describe('Testa se a função getInvestimentByClient', () => {
         }));
     });
 });
-// getInvestimentByClientAndAsset
 describe('Testa se a função getInvestimentByClientAndAsset', () => {
     before(() => {
         const ExpectReturn = {
@@ -106,24 +103,39 @@ describe('Testa se a função getInvestimentByClientAndAsset', () => {
     });
     describe('retorna um array de objetos que:', () => {
         it('contém o id do investimento', () => __awaiter(void 0, void 0, void 0, function* () {
-            const investimento = yield investimentos_service_1.default.getInvestimentByClientAndAsset(1, 1);
+            const object = {
+                codCliente: 1,
+                codAtivo: 1
+            };
+            const investimento = yield investimentos_service_1.default.getInvestimentByClientAndAsset(object);
             (0, chai_1.expect)(investimento.id).to.be.equals(1);
         }));
         it('contém o codigo do cliente', () => __awaiter(void 0, void 0, void 0, function* () {
-            const investimento = yield investimentos_service_1.default.getInvestimentByClientAndAsset(1, 1);
+            const object = {
+                codCliente: 1,
+                codAtivo: 1
+            };
+            const investimento = yield investimentos_service_1.default.getInvestimentByClientAndAsset(object);
             (0, chai_1.expect)(investimento.codCliente).to.be.equals(1);
         }));
         it('contém o codigo do ativo', () => __awaiter(void 0, void 0, void 0, function* () {
-            const investimento = yield investimentos_service_1.default.getInvestimentByClientAndAsset(1, 1);
+            const object = {
+                codCliente: 1,
+                codAtivo: 1
+            };
+            const investimento = yield investimentos_service_1.default.getInvestimentByClientAndAsset(object);
             (0, chai_1.expect)(investimento.codAtivo).to.be.equals(1);
         }));
         it('contém a quantidade de ativos', () => __awaiter(void 0, void 0, void 0, function* () {
-            const investimento = yield investimentos_service_1.default.getInvestimentByClientAndAsset(1, 1);
+            const object = {
+                codCliente: 1,
+                codAtivo: 1
+            };
+            const investimento = yield investimentos_service_1.default.getInvestimentByClientAndAsset(object);
             (0, chai_1.expect)(investimento.qtdeAtivo).to.be.equals(100);
         }));
     });
 });
-// sellInvestiment
 describe('Testa se a função deleteInvestiment', () => {
     before(() => {
         const ExpectReturn = {

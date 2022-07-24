@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const authentication_service_1 = __importDefault(require("../service/authentication.service"));
 const authentication = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-    const { status, response } = yield (0, authentication_service_1.default)(email, password);
+    const { status, response } = yield authentication_service_1.default.authentication(email, password);
     return res.status(status).json({ token: response });
 });
 exports.default = authentication;

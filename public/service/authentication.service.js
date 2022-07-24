@@ -27,4 +27,6 @@ const authentication = (email, password) => __awaiter(void 0, void 0, void 0, fu
         response: token
     };
 });
-exports.default = authentication;
+exports.default = {
+    authentication
+};

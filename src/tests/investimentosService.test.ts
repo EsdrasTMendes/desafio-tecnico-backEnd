@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import service from '../service/investimentos.service';
 import sinon from 'sinon';
 
-  // createInvestiment
+
 describe('Testa se a função createInvestiment', () => {
   before(() => {
     const ExpectReturn =  {
@@ -46,8 +46,6 @@ describe('Testa se a função createInvestiment', () => {
 });
 
 
-  // getInvestimentByClient
-
   describe('Testa se a função getInvestimentByClient', () => {
     before(() => {
       const ExpectReturn = [
@@ -84,7 +82,7 @@ describe('Testa se a função createInvestiment', () => {
       })
     })
   });
-  // getInvestimentByClientAndAsset
+
 
   describe('Testa se a função getInvestimentByClientAndAsset', () => {
     before(() => {
@@ -104,24 +102,40 @@ describe('Testa se a função createInvestiment', () => {
   
     describe('retorna um array de objetos que:', () => {
       it('contém o id do investimento', async () => {
-        const investimento = await service.getInvestimentByClientAndAsset(1, 1);
+        const object = {
+          codCliente:1,
+          codAtivo: 1
+        };
+        const investimento = await service.getInvestimentByClientAndAsset(object);
         expect(investimento.id).to.be.equals(1);
       })
       it('contém o codigo do cliente', async () => {
-        const investimento = await service.getInvestimentByClientAndAsset(1, 1);
+        const object = {
+          codCliente:1,
+          codAtivo: 1
+        };
+        const investimento = await service.getInvestimentByClientAndAsset(object);
         expect(investimento.codCliente).to.be.equals(1);
       })
       it('contém o codigo do ativo', async () => {
-        const investimento = await service.getInvestimentByClientAndAsset(1, 1);
+        const object = {
+          codCliente:1,
+          codAtivo: 1
+        };
+        const investimento = await service.getInvestimentByClientAndAsset(object);
         expect(investimento.codAtivo).to.be.equals(1);
       })
       it('contém a quantidade de ativos', async () => {
-        const investimento = await service.getInvestimentByClientAndAsset(1, 1);
+        const object = {
+          codCliente:1,
+          codAtivo: 1
+        };
+        const investimento = await service.getInvestimentByClientAndAsset(object);
         expect(investimento.qtdeAtivo).to.be.equals(100);
       })
-    })
-  });
-  // sellInvestiment
+  })
+});
+
 
   describe('Testa se a função deleteInvestiment', () => {
     before(() => {

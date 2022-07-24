@@ -16,4 +16,6 @@ const authentication = async (email: string, password:string) => {
   }
 }
 
-export default authentication;
+export default {
+  authentication
+};
