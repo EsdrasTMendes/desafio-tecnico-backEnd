@@ -5,10 +5,10 @@
   "main": "public/app.js",
   "scripts": {
     "start": "tsc && node public/app.js",
-    "test": "nyc mocha public/tests/**/*.test.js --exit",
+    "test": "mocha public/tests/**/*.test.js --exit",
     "dev": "tsc && nodemon public/app.js",
     "build": "tsc --watch",
-    "test:nyc": "nyc --include models --include services --include controllers mocha public/tests/**/*.test.js --exit"
+    "test:coverage": "nyc mocha public/tests/**/*.test.js --exit"
   },
   "repository": {
     "type": "git",
