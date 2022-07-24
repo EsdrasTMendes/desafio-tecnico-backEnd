@@ -13,10 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const investimentos_service_1 = __importDefault(require("../service/investimentos.service"));
-// const getAllInvestiments = async (_req: Request, res: Response): Promise<Response> => {
-//   const wallets = await service.getAllInvestiments();
-//   return res.status(200).json(wallets);
-// };
 const createInvestiment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { status, response } = yield investimentos_service_1.default.createInvestiment(req.body);
     return res.status(status).json(response);
