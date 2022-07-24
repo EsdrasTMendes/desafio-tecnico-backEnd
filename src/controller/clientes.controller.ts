@@ -19,7 +19,7 @@ const withdrawByCode = async (req: Request, res: Response): Promise<Response> =>
 
 const createClient = async (req: Request, res: Response): Promise<Response> => {
   const client = await service.createClient(req.body);
-  return res.status(client.status).json(client.status);
+  return res.status(client.status).json({message: client.response});
 };
 
 

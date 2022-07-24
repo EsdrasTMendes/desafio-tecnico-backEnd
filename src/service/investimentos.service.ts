@@ -32,7 +32,7 @@ const createInvestiment = async ({ codCliente, codAtivo, qtdeAtivo }: IInvestime
   };
 
   const newqtdeAtivos = Number(Number(investiment.qtdeAtivo) + Number(qtdeAtivo));
-  const update = await model.updateInvestiment(newqtdeAtivos, investiment.id);
+  const update = await model.updateInvestiment(newqtdeAtivos, investiment.id as number);
   buyOrdersUpdateValues(codCliente, codAtivo, qtdeAtivo);
   return {
     status: 200,
@@ -59,7 +59,7 @@ const sellInvestiment = async({ codCliente, codAtivo, qtdeAtivo }: IInvestimento
     }
   };
   const newqtdeAtivos = Number(investiment.qtdeAtivo) - Number(qtdeAtivo); 
-  const update = await model.updateInvestiment(newqtdeAtivos, investiment.id)
+  const update = await model.updateInvestiment(newqtdeAtivos, investiment.id as number)
   sellOrdersUpdateValues(codCliente, codAtivo, qtdeAtivo);
   return {
     status: 200,

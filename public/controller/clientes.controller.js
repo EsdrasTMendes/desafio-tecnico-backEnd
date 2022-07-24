@@ -28,7 +28,7 @@ const withdrawByCode = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 const createClient = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const client = yield clientes_service_1.default.createClient(req.body);
-    return res.status(client.status).json(client.status);
+    return res.status(client.status).json({ message: client.response });
 });
 exports.default = {
     getClientByCode,

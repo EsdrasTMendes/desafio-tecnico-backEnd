@@ -7,7 +7,8 @@
     "start": "tsc && node public/app.js",
     "test": "mocha public/tests ",
     "dev": "tsc && nodemon public/app.js",
-    "build": "tsc --watch"
+    "build": "tsc --watch",
+    "test:nyc": "nyc --all --include models --include services --include controllers mocha public/tests"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.19",
+    "nyc": "^15.1.0",
     "ts-node": "^10.9.1"
   }
 }
