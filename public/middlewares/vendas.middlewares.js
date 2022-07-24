@@ -12,11 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const posicaoCorretoras_model_1 = __importDefault(require("../models/posicaoCorretoras.model"));
-const getAllPositions = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield posicaoCorretoras_model_1.default.getAllPositions();
-    return result;
+const investimentos_service_1 = __importDefault(require("../service/investimentos.service"));
+const JoiValidations_1 = __importDefault(require("../utils/JoiValidations"));
+const middlewareVenda = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { qtdeAtivo } = req.body;
+    const { error } = JoiValidations_1.default.JoiValidations.validate(req.body);
+    if (error) {
+        next({ status: 400, response: error.details[0].message });
+    }
+    const result = yield investimentos_service_1.default.getInvestimentByClientAndAsset(req.body);
+    if (result.qtdeAtivo < qtdeAtivo) {
+        next({ status: 404, response: `Quantidade de ativos disponíveis para venda é de: ${result.qtdeAtivo} lotes` });
+    }
+    next();
 });
-exports.default = {
-    getAllPositions,
-};
+exports.default = middlewareVenda;

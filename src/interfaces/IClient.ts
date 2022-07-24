@@ -1,8 +1,8 @@
-interface IClientes {
+interface IClient {
   codCliente: number;
-  nomeCliente?: string;
+  nomeCliente: string;
   saldoConta: number; 
   saldoCustodia: number;
 }
 
-export default IClientes;
+export default IClient;

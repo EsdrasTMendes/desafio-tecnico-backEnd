@@ -13,10 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const clientes_model_1 = __importDefault(require("../models/clientes.model"));
-const getAllClients = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield clientes_model_1.default.getAllClients();
-    return result;
-});
 const getClientByCode = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
     const [client] = yield clientes_model_1.default.getClientsByCode(codCliente);
     return client;
@@ -29,20 +25,35 @@ const withdrawByCode = ({ CodCliente, Valor }) => __awaiter(void 0, void 0, void
     const [client] = yield clientes_model_1.default.getClientsByCode(CodCliente);
     const newValueConta = Number(client.saldoConta) - Number(Valor);
     const result = yield clientes_model_1.default.withdrawAndDepositByCode(CodCliente, newValueConta);
-    console.log(result);
     return result;
 });
 const depositByCode = ({ CodCliente, Valor }) => __awaiter(void 0, void 0, void 0, function* () {
     const [client] = yield clientes_model_1.default.getClientsByCode(CodCliente);
     const newValueConta = Number(client.saldoConta) + Number(Valor);
     const result = yield clientes_model_1.default.withdrawAndDepositByCode(CodCliente, newValueConta);
-    console.log(result);
     return result;
 });
+const createClient = ({ nomeCliente, emailCliente, saldoConta, saldoCustodia, passwordCliente }) => __awaiter(void 0, void 0, void 0, function* () {
+    const client = yield clientes_model_1.default.createClient(nomeCliente, emailCliente, saldoConta, saldoCustodia, passwordCliente);
+    return {
+        status: 200,
+        response: 'Cliente criado com sucesso'
+    };
+});
+const getClientByEmailAndPassword = (emailCliente, passwordCliente) => __awaiter(void 0, void 0, void 0, function* () {
+    const [client] = yield clientes_model_1.default.getClientByEmailAndPassword(emailCliente, passwordCliente);
+    return client;
+});
+const getClientByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const [client] = yield clientes_model_1.default.getClientByEmail(email);
+    return client;
+});
 exports.default = {
-    getAllClients,
     getClientByCode,
     updateClientByCode,
     withdrawByCode,
     depositByCode,
+    createClient,
+    getClientByEmailAndPassword,
+    getClientByEmail,
 };

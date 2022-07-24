@@ -12,18 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const connection_1 = __importDefault(require("./connection"));
-const getAllPositions = () => __awaiter(void 0, void 0, void 0, function* () {
-    const [result] = yield connection_1.default.execute(`SELECT corretora_id AS corretoraId, ativo_id AS ativoId, qtd_disponivel AS qtdDisponivel
-    FROM StockmarketXP.posicao_corretoras`);
-    return result;
+const JWTToken_1 = __importDefault(require("../utils/JWTToken"));
+const tokenMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const token = req.headers.authorization;
+    const { error, response, status } = yield JWTToken_1.default.verifyToken(token);
+    if (error) {
+        next({
+            status,
+            response
+        });
+    }
+    res.locals.payload = response;
+    next();
 });
-const getPositionsByStockAndBroker = (ativoId, corretoraId) => __awaiter(void 0, void 0, void 0, function* () {
-    const [result] = yield connection_1.default.execute(`SELECT corretora_id AS corretoraId, ativo_id AS ativoId, qtd_disponivel AS qtdDisponivel
-    FROM StockmarketXP.posicao_corretoras WHERE corretora_id = ? AND ativoId = ?`, [ativoId, corretoraId]);
-    return result;
-});
-exports.default = {
-    getAllPositions,
-    getPositionsByStockAndBroker
-};
+exports.default = tokenMiddleware;

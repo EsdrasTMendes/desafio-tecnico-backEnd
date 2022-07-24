@@ -12,18 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const acoes_service_1 = __importDefault(require("../service/acoes.service"));
 const clientes_service_1 = __importDefault(require("../service/clientes.service"));
-const orderBuilder_1 = __importDefault(require("./orderBuilder"));
-const sellOrder = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0, void 0, void 0, function* () {
-    const acao = yield acoes_service_1.default.getStockByCode(codAtivo);
-    const { saldoConta, saldoCustodia } = yield clientes_service_1.default.getClientByCode(codCliente);
-    const saldoVenda = acao.valorAtivo * qtdeAtivo;
-    const novoSaldoCustodia = saldoCustodia - saldoVenda;
-    const novoSaldo = saldoConta + saldoVenda;
-    const uptadeClient = (0, orderBuilder_1.default)(codCliente, novoSaldo, novoSaldoCustodia);
-    const novaQtdeAtivo = acao.qtdeDisponivel + qtdeAtivo;
-    acoes_service_1.default.updateByCode(novaQtdeAtivo, codAtivo);
-    clientes_service_1.default.updateClientByCode(uptadeClient);
+const JoiValidations_1 = __importDefault(require("../utils/JoiValidations"));
+const contaMiddleware = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { codCliente } = req.params;
+    const { error } = JoiValidations_1.default.JoiValidationsCodClient.validate(req.params);
+    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('codCliente')) {
+        next({
+            status: 404,
+            response: 'O código do cliente deve ser um número maior que 0.'
+        });
+    }
+    const result = yield clientes_service_1.default.getClientByCode(+codCliente);
+    if (!result) {
+        next({
+            status: 404,
+            response: 'Nenhum usuário encontrado com o código informado.'
+        });
+    }
+    next();
 });
-exports.default = sellOrder;
+exports.default = contaMiddleware;

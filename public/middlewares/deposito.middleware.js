@@ -12,11 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const posicaoCorretoras_service_1 = __importDefault(require("../service/posicaoCorretoras.service"));
-const getAllPositions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const positions = yield posicaoCorretoras_service_1.default.getAllPositions();
-    return res.status(200).json(positions);
+const JoiValidations_1 = __importDefault(require("../utils/JoiValidations"));
+const middlewareDeposito = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { error } = JoiValidations_1.default.JoiValidationsSaque.validate(req.body);
+    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('CodCliente')) {
+        next({
+            status: 400,
+            response: 'Codigo do cliente inválido, tente um código válido.'
+        });
+    }
+    if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('Valor')) {
+        next({
+            status: 400,
+            response: 'Insira um valor válido para depósito.'
+        });
+    }
+    next();
 });
-exports.default = {
-    getAllPositions,
-};
+exports.default = middlewareDeposito;

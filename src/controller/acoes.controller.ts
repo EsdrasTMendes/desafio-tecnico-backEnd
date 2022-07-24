@@ -7,12 +7,18 @@ const getAllStocks = async (req: Request, res: Response): Promise<Response> => {
 };
 
 const getStockByCode = async (req: Request, res: Response): Promise<Response> => {
-  const {code} = (req.params);
-  const stock = await service.getStockByCode(+code);
+  const {codAtivo} = (req.params);
+  const stock = await service.getStockByCode(+codAtivo);
   return res.status(200).json(stock);
+};
+
+const createAssets = async (req: Request, res: Response): Promise<Response> => {
+  const {status, response} = await service.createAssets(req.body);
+  return res.status(status).json(response);
 };
 
 export default {
   getAllStocks,
-  getStockByCode
+  getStockByCode,
+  createAssets
 }

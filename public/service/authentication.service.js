@@ -12,16 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const acoes_service_1 = __importDefault(require("../service/acoes.service"));
-const clientes_service_1 = __importDefault(require("../service/clientes.service"));
-const orderBuilder_1 = __importDefault(require("./orderBuilder"));
-const buyOrder = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0, void 0, void 0, function* () {
-    const { valorAtivo } = yield acoes_service_1.default.getStockByCode(codAtivo);
-    const { saldoConta } = yield clientes_service_1.default.getClientByCode(codCliente);
-    const saldoCustodia = valorAtivo * qtdeAtivo;
-    const novoSaldo = saldoConta - saldoCustodia;
-    const uptadeClient = (0, orderBuilder_1.default)(codCliente, saldoCustodia, novoSaldo);
-    acoes_service_1.default.updateByCode(qtdeAtivo, codAtivo);
-    clientes_service_1.default.updateClientByCode(uptadeClient);
+const clientes_service_1 = __importDefault(require("./clientes.service"));
+const JWTToken_1 = __importDefault(require("../utils/JWTToken"));
+const authentication = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
+    const { codCliente, nomeCliente, emailCliente } = yield clientes_service_1.default.getClientByEmailAndPassword(email, password);
+    const clienteDataValues = {
+        codCliente,
+        nomeCliente,
+        emailCliente,
+    };
+    const token = JWTToken_1.default.generateJWTToken(clienteDataValues);
+    return {
+        status: 200,
+        response: token
+    };
 });
-exports.default = buyOrder;
+exports.default = {
+    authentication
+};

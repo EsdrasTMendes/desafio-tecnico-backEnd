@@ -12,12 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const connection_1 = __importDefault(require("./connection"));
-const getAllStockBrokers = () => __awaiter(void 0, void 0, void 0, function* () {
-    const [result] = yield connection_1.default.execute(`SELECT corretora_id AS corretoraId, nome_corretora AS nomeCorretora
-    FROM StockmarketXP.corretoras`);
-    return result;
+const authentication_service_1 = __importDefault(require("../service/authentication.service"));
+const authentication = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    const { status, response } = yield authentication_service_1.default.authentication(email, password);
+    return res.status(status).json({ token: response });
 });
-exports.default = {
-    getAllStockBrokers,
-};
+exports.default = authentication;

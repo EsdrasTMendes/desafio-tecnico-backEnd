@@ -13,12 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("./connection"));
-const getAllInvestiments = () => __awaiter(void 0, void 0, void 0, function* () {
-    const [result] = yield connection_1.default.execute(`SELECT id, cod_cliente AS codCliente, cod_ativo AS codAtivo,
-    qtd_ativo AS qtdeAtivo FROM 
-    StockmarketXP.investimentos`);
-    return result;
-});
 const getInvestimentByClient = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`SELECT
     i.cod_cliente AS CodCliente,
@@ -40,19 +34,24 @@ const getInvestimentByClientAndAsset = (codCliente, codAtivo) => __awaiter(void 
 });
 const updateInvestiment = (qtdeAtivo, id) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`UPDATE investimentos SET qtd_ativo = ? WHERE id= ?`, [qtdeAtivo, id]);
-    return result;
+    return {
+        message: 'Operação realizada com sucesso'
+    };
 });
 const createInvestiment = (codCliente, codAtivo, qtdeAtivo) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`INSERT INTO investimentos(cod_cliente, cod_ativo, qtd_ativo)
     VALUES (?,?,?)`, [codCliente, codAtivo, qtdeAtivo]);
-    return result;
+    return {
+        message: 'Operação realizada com sucesso'
+    };
 });
 const deleteInvestiment = (codCliente, codAtivo) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`DELETE FROM investimentos WHERE cod_cliente = ? AND cod_ativo = ?`, [codCliente, codAtivo]);
-    return result;
+    return {
+        message: 'Operação realizada com sucesso'
+    };
 });
 exports.default = {
-    getAllInvestiments,
     createInvestiment,
     getInvestimentByClient,
     getInvestimentByClientAndAsset,

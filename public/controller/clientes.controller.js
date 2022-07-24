@@ -13,13 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const clientes_service_1 = __importDefault(require("../service/clientes.service"));
-const getAllClients = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const clients = yield clientes_service_1.default.getAllClients();
-    return res.status(200).json(clients);
-});
 const getClientByCode = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { code } = req.params;
-    const client = yield clientes_service_1.default.getClientByCode(+code);
+    const { codCliente } = req.params;
+    const client = yield clientes_service_1.default.getClientByCode(+codCliente);
     return res.status(200).json(client);
 });
 const depositByCode = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -30,9 +26,13 @@ const withdrawByCode = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const deposit = yield clientes_service_1.default.withdrawByCode(req.body);
     return res.status(200).json({ message: 'Saque realizado com sucesso' });
 });
+const createClient = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const client = yield clientes_service_1.default.createClient(req.body);
+    return res.status(client.status).json({ message: client.response });
+});
 exports.default = {
-    getAllClients,
     getClientByCode,
     depositByCode,
     withdrawByCode,
+    createClient,
 };

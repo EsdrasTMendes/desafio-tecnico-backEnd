@@ -12,11 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const corretoras_model_1 = __importDefault(require("../models/corretoras.model"));
-const getAllStockBrokers = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield corretoras_model_1.default.getAllStockBrokers();
-    return result;
+const acoes_service_1 = __importDefault(require("../service/acoes.service"));
+const ativoMiddleware = (req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { codAtivo } = req.params;
+    const result = yield acoes_service_1.default.getStockByCode(+codAtivo);
+    if (!result) {
+        next({
+            status: 404,
+            response: 'Ativo não encontrado.'
+        });
+    }
+    next();
 });
-exports.default = {
-    getAllStockBrokers,
-};
+exports.default = ativoMiddleware;
