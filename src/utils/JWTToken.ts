@@ -6,7 +6,7 @@ dotenv.config();
 const SECRET: string = process.env.JWT_SECRET || 'processenvSecret';
 
 const jwtConfig: SignOptions = {
-  expiresIn: 600,
+  expiresIn: '10h',
   algorithm: 'HS256',
 };
 

@@ -1,11 +1,6 @@
 import { Request, Response } from "express";
 import service from '../service/clientes.service';
 
-const getAllClients = async (_req: Request, res: Response): Promise<Response> => {
-  const clients = await service.getAllClients();
-  return res.status(200).json(clients);
-};
-
 const getClientByCode = async (req: Request, res: Response): Promise<Response> => {
   const {codCliente} = req.params;
   const client = await service.getClientByCode(+codCliente);
@@ -29,7 +24,6 @@ const createClient = async (req: Request, res: Response): Promise<Response> => {
 
 
 export default {
-  getAllClients,
   getClientByCode,
   depositByCode,
   withdrawByCode,

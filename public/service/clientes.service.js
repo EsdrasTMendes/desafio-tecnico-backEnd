@@ -13,10 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const clientes_model_1 = __importDefault(require("../models/clientes.model"));
-const getAllClients = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield clientes_model_1.default.getAllClients();
-    return result;
-});
 const getClientByCode = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
     const [client] = yield clientes_model_1.default.getClientsByCode(codCliente);
     return client;
@@ -53,7 +49,6 @@ const getClientByEmail = (email) => __awaiter(void 0, void 0, void 0, function* 
     return client;
 });
 exports.default = {
-    getAllClients,
     getClientByCode,
     updateClientByCode,
     withdrawByCode,

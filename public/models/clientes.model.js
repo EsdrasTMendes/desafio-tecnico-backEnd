@@ -13,11 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("./connection"));
-const getAllClients = () => __awaiter(void 0, void 0, void 0, function* () {
-    const [result] = yield connection_1.default.execute(`SELECT cod_cliente AS codCliente, nome_cliente AS nomeCliente, saldo_conta AS saldoConta,
-    saldo_custodia AS saldoCustodia FROM StockmarketXP.clientes`);
-    return result;
-});
 const getClientsByCode = (codCliente) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`SELECT cod_cliente AS codCliente, nome_cliente AS nomeCliente, saldo_conta AS saldoConta,
     saldo_custodia AS saldoCustodia FROM StockmarketXP.clientes WHERE cod_cliente = ?`, [codCliente]);
@@ -30,7 +25,9 @@ const getClientByEmailAndPassword = (emailCliente, passwordCliente) => __awaiter
 });
 const updateClientByCode = (codCliente, saldoCustodia, saldoConta) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_custodia = ?, saldo_conta = ? WHERE cod_cliente = ?`, [saldoCustodia, saldoConta, codCliente]);
-    return result;
+    return {
+        message: 'Cliente atualizado com sucesso'
+    };
 });
 const getClientByEmail = (emailCliente) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`SELECT cod_cliente AS codCliente, email_cliente AS emailCliente, nome_cliente AS nomeCliente, saldo_conta AS saldoConta,
@@ -39,14 +36,17 @@ const getClientByEmail = (emailCliente) => __awaiter(void 0, void 0, void 0, fun
 });
 const withdrawAndDepositByCode = (codCliente, valor) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`, [valor, codCliente]);
-    return result;
+    return {
+        message: 'Operação realizada com sucesso'
+    };
 });
 const createClient = (nomeCliente, emailCliente, saldoConta, saldoCustodia, passwordCliente) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield connection_1.default.execute(`INSERT INTO clientes(nome_cliente, email_cliente, saldo_conta, saldo_custodia, password_cliente) values (?, ?, ?, ?, ?)`, [nomeCliente, emailCliente, saldoConta, saldoCustodia, passwordCliente]);
-    return result;
+    return {
+        message: 'Cadastro criado com sucesso.'
+    };
 });
 exports.default = {
-    getAllClients,
     getClientsByCode,
     updateClientByCode,
     withdrawAndDepositByCode,

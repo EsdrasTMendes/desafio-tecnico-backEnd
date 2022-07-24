@@ -17,7 +17,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const SECRET = process.env.JWT_SECRET || 'processenvSecret';
 const jwtConfig = {
-    expiresIn: 600,
+    expiresIn: '10h',
     algorithm: 'HS256',
 };
 const verifyToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
@@ -30,7 +30,6 @@ const verifyToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
     }
     try {
         const validation = yield (0, jsonwebtoken_1.verify)(token, SECRET, jwtConfig);
-        console.log(validation);
         return {
             status: 200,
             response: validation,

@@ -13,10 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const clientes_service_1 = __importDefault(require("../service/clientes.service"));
-const getAllClients = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const clients = yield clientes_service_1.default.getAllClients();
-    return res.status(200).json(clients);
-});
 const getClientByCode = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { codCliente } = req.params;
     const client = yield clientes_service_1.default.getClientByCode(+codCliente);
@@ -35,7 +31,6 @@ const createClient = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     return res.status(client.status).json(client.status);
 });
 exports.default = {
-    getAllClients,
     getClientByCode,
     depositByCode,
     withdrawByCode,

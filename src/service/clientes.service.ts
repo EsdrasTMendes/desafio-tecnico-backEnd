@@ -4,10 +4,6 @@ import { ResultSetHeader } from 'mysql2';
 import IMovimentacoes from '../interfaces/IMovimentacoes';
 import IClientJWT from '../interfaces/IClientJWT';
 
-const getAllClients = async (): Promise<IConta[]> => {
-  const result = await model.getAllClients();
-  return result;
-};
 const getClientByCode = async (codCliente: number): Promise<IConta> => {
   const [client] = await model.getClientsByCode(codCliente);
   return client;
@@ -51,7 +47,6 @@ const getClientByEmail = async (email:string): Promise<IClientJWT> => {
 
 
 export default {
-  getAllClients,
   getClientByCode,
   updateClientByCode,
   withdrawByCode,
