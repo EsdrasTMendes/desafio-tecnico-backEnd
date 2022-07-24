@@ -13,22 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
-const investimentos_service_1 = __importDefault(require("../service/investimentos.service"));
+const investimentos_service_1 = __importDefault(require("../../service/investimentos.service"));
+const investimentos_model_1 = __importDefault(require("../../models/investimentos.model"));
 const sinon_1 = __importDefault(require("sinon"));
 describe('Testa se a função createInvestiment', () => {
     before(() => {
         const ExpectReturn = {
-            status: 200,
-            response: {
-                codCliente: 1,
-                codAtivo: 1,
-                qtdeAtivo: 10
-            },
+            message: 'investimento criado com sucesso'
         };
-        sinon_1.default.stub(investimentos_service_1.default, 'createInvestiment').resolves(ExpectReturn);
+        sinon_1.default.stub(investimentos_model_1.default, 'createInvestiment').resolves(ExpectReturn);
     });
     after(() => {
-        investimentos_service_1.default.createInvestiment.restore();
+        investimentos_model_1.default.createInvestiment.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém o status 200', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -64,10 +60,10 @@ describe('Testa se a função getInvestimentByClient', () => {
                 qtdeAtivo: 100,
             }
         ];
-        sinon_1.default.stub(investimentos_service_1.default, 'getInvestimentByClient').resolves(ExpectReturn);
+        sinon_1.default.stub(investimentos_model_1.default, 'getInvestimentByClient').resolves(ExpectReturn);
     });
     after(() => {
-        investimentos_service_1.default.getInvestimentByClient.restore();
+        investimentos_model_1.default.getInvestimentByClient.restore();
     });
     describe('retorna um array de objetos que:', () => {
         it('contém o id do investimento', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -90,16 +86,16 @@ describe('Testa se a função getInvestimentByClient', () => {
 });
 describe('Testa se a função getInvestimentByClientAndAsset', () => {
     before(() => {
-        const ExpectReturn = {
-            id: 1,
-            codCliente: 1,
-            codAtivo: 1,
-            qtdeAtivo: 100,
-        };
-        sinon_1.default.stub(investimentos_service_1.default, 'getInvestimentByClientAndAsset').resolves(ExpectReturn);
+        const ExpectReturn = [{
+                id: 1,
+                codCliente: 1,
+                codAtivo: 1,
+                qtdeAtivo: 100,
+            }];
+        sinon_1.default.stub(investimentos_model_1.default, 'getInvestimentByClientAndAsset').resolves(ExpectReturn);
     });
     after(() => {
-        investimentos_service_1.default.getInvestimentByClientAndAsset.restore();
+        investimentos_model_1.default.getInvestimentByClientAndAsset.restore();
     });
     describe('retorna um array de objetos que:', () => {
         it('contém o id do investimento', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -139,17 +135,12 @@ describe('Testa se a função getInvestimentByClientAndAsset', () => {
 describe('Testa se a função deleteInvestiment', () => {
     before(() => {
         const ExpectReturn = {
-            status: 200,
-            response: {
-                codCliente: 1,
-                codAtivo: 1,
-                qtdeAtivo: 10
-            },
+            message: 'operação realizada com sucesso'
         };
-        sinon_1.default.stub(investimentos_service_1.default, 'sellInvestiment').resolves(ExpectReturn);
+        sinon_1.default.stub(investimentos_model_1.default, 'deleteInvestiment').resolves(ExpectReturn);
     });
     after(() => {
-        investimentos_service_1.default.sellInvestiment.restore();
+        investimentos_model_1.default.deleteInvestiment.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém o status 200', () => __awaiter(void 0, void 0, void 0, function* () {

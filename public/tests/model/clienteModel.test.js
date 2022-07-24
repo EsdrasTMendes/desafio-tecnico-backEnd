@@ -13,20 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
-const clientes_model_1 = __importDefault(require("../models/clientes.model"));
+const clientes_model_1 = __importDefault(require("../../models/clientes.model"));
+const connection_1 = __importDefault(require("../../models/connection"));
 const sinon_1 = __importDefault(require("sinon"));
 describe('Testa se a função getClientsByCode', () => {
+    let executeSpy;
     before(() => {
-        const ExpectReturn = [{
-                codCliente: 1,
-                nomeCliente: "Esdras Tenório Mendes",
-                saldoConta: 100.00,
-                saldoCustodia: 0.00
-            }];
-        sinon_1.default.stub(clientes_model_1.default, 'getClientsByCode').resolves(ExpectReturn);
+        const ExpectReturn = [[{
+                    codCliente: 1,
+                    nomeCliente: "Esdras Tenório Mendes",
+                    saldoConta: 100.00,
+                    saldoCustodia: 0.00
+                }]];
+        executeSpy = sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_model_1.default.getClientsByCode.restore();
+        connection_1.default.execute.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém o código do cliente', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -53,13 +55,13 @@ describe('Testa se a função getClientsByCode', () => {
 });
 describe('Testa se a função updateClientByCode', () => {
     before(() => {
-        const ExpectReturn = {
-            message: 'Cliente atualizado com sucesso'
-        };
-        sinon_1.default.stub(clientes_model_1.default, 'updateClientByCode').resolves(ExpectReturn);
+        const ExpectReturn = [{
+                message: 'Cliente atualizado com sucesso'
+            }];
+        sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_model_1.default.updateClientByCode.restore();
+        connection_1.default.execute.restore();
     });
     it('retorna a mensagem "Cliente autualizado com sucesso"', () => __awaiter(void 0, void 0, void 0, function* () {
         const { message } = yield clientes_model_1.default.updateClientByCode(1, 20, 10);
@@ -68,13 +70,13 @@ describe('Testa se a função updateClientByCode', () => {
 });
 describe('Testa se a função withdrawAndDepositByCode', () => {
     before(() => {
-        const ExpectReturn = {
-            message: 'Operação realizada com sucesso'
-        };
-        sinon_1.default.stub(clientes_model_1.default, 'withdrawAndDepositByCode').resolves(ExpectReturn);
+        const ExpectReturn = [{
+                message: 'Operação realizada com sucesso'
+            }];
+        sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_model_1.default.withdrawAndDepositByCode.restore();
+        connection_1.default.execute.restore();
     });
     it('retorna a mensagem "Operação realizada com sucesso"', () => __awaiter(void 0, void 0, void 0, function* () {
         const { message } = yield clientes_model_1.default.withdrawAndDepositByCode(1, 20);
@@ -83,13 +85,13 @@ describe('Testa se a função withdrawAndDepositByCode', () => {
 });
 describe('Testa se a função createClient', () => {
     before(() => {
-        const ExpectReturn = {
-            message: 'Cadastro criado com sucesso.'
-        };
-        sinon_1.default.stub(clientes_model_1.default, 'createClient').resolves(ExpectReturn);
+        const ExpectReturn = [{
+                message: 'Cadastro criado com sucesso.'
+            }];
+        sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_model_1.default.createClient.restore();
+        connection_1.default.execute.restore();
     });
     it('retorna a mensagem "Cadastro criado com sucesso" ', () => __awaiter(void 0, void 0, void 0, function* () {
         const { message } = yield clientes_model_1.default.createClient('Esdras Mendes', 'esdrastmendes@gmail.com', 10, 0, 'senhateste1');
@@ -98,18 +100,18 @@ describe('Testa se a função createClient', () => {
 });
 describe('Testa se a função getClientByEmailAndPassword', () => {
     before(() => {
-        const ExpectReturn = [{
-                codCliente: 1,
-                nomeCliente: 'Esdras Tenório Mendes',
-                saldoConta: 10,
-                saldoCustodia: 0,
-                emailCliente: 'esdrastmendes@gmail.com',
-                passwordCliente: '123456789',
-            }];
-        sinon_1.default.stub(clientes_model_1.default, 'getClientByEmailAndPassword').resolves(ExpectReturn);
+        const ExpectReturn = [[{
+                    codCliente: 1,
+                    nomeCliente: 'Esdras Tenório Mendes',
+                    saldoConta: 10,
+                    saldoCustodia: 0,
+                    emailCliente: 'esdrastmendes@gmail.com',
+                    passwordCliente: '123456789',
+                }]];
+        sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_model_1.default.getClientByEmailAndPassword.restore();
+        connection_1.default.execute.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém o código do cliente ', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -146,18 +148,18 @@ describe('Testa se a função getClientByEmailAndPassword', () => {
 });
 describe('Testa se a função getClientByEmail', () => {
     before(() => {
-        const ExpectReturn = [{
-                codCliente: 1,
-                nomeCliente: 'Esdras Tenório Mendes',
-                saldoConta: 10,
-                saldoCustodia: 0,
-                emailCliente: 'esdrastmendes@gmail.com',
-                passwordCliente: '123456789',
-            }];
-        sinon_1.default.stub(clientes_model_1.default, 'getClientByEmail').resolves(ExpectReturn);
+        const ExpectReturn = [[{
+                    codCliente: 1,
+                    nomeCliente: 'Esdras Tenório Mendes',
+                    saldoConta: 10,
+                    saldoCustodia: 0,
+                    emailCliente: 'esdrastmendes@gmail.com',
+                    passwordCliente: '123456789',
+                }]];
+        sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_model_1.default.getClientByEmail.restore();
+        connection_1.default.execute.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém o código do cliente ', () => __awaiter(void 0, void 0, void 0, function* () {

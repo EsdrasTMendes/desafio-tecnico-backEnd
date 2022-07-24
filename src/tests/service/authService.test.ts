@@ -1,9 +1,9 @@
 import {expect} from 'chai';
-import auth from '../service/authentication.service';
+import auth from '../../service/authentication.service';
 import sinon from 'sinon';
 
 
-describe('Testa se a função createAssets', () => {
+describe('Testa se a função authentication', () => {
   before(() => {
     const ExpectReturn = {
       status: 200,

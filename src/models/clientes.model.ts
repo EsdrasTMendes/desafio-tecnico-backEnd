@@ -2,7 +2,6 @@ import connection from "./connection";
 import IClientes from "../interfaces/IConta";
 import IClientJWT from "../interfaces/IClientJWT";
 import IUpdate from "../interfaces/IUpdate";
-import { ResultSetHeader } from "mysql2";
 
 const getClientsByCode = async (codCliente: number): Promise<IClientes[]> => {
   const [result] = await connection.execute(
@@ -23,7 +22,7 @@ const getClientByEmailAndPassword = async(emailCliente: string, passwordCliente:
 };
 
 const updateClientByCode = async (codCliente:number, saldoCustodia: number, saldoConta: number): Promise<IUpdate> => {
-    const [result] = await connection.execute<ResultSetHeader>(
+    const [result] = await connection.execute(
       `UPDATE clientes SET saldo_custodia = ?, saldo_conta = ? WHERE cod_cliente = ?`,
       [saldoCustodia, saldoConta, codCliente]
     );
@@ -43,7 +42,7 @@ const getClientByEmail = async(emailCliente: string, ): Promise<IClientJWT[]> =>
 };
 
 const withdrawAndDepositByCode = async (codCliente:number, valor: number): Promise<IUpdate> => {
-    const [result] = await connection.execute<ResultSetHeader>(
+    const [result] = await connection.execute(
       `UPDATE clientes SET saldo_conta = ? WHERE cod_cliente = ?`,
       [valor, codCliente]
     );
@@ -53,7 +52,7 @@ const withdrawAndDepositByCode = async (codCliente:number, valor: number): Promi
 }
 
 const createClient = async (nomeCliente: string, emailCliente: string, saldoConta: number, saldoCustodia: number, passwordCliente: string): Promise<IUpdate> => {
-  const [result] = await connection.execute<ResultSetHeader>(
+  const [result] = await connection.execute(
     `INSERT INTO clientes(nome_cliente, email_cliente, saldo_conta, saldo_custodia, password_cliente) values (?, ?, ?, ?, ?)`,
     [nomeCliente, emailCliente, saldoConta, saldoCustodia, passwordCliente]
   );

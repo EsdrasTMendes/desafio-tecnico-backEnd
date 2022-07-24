@@ -13,17 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
-const investimentos_model_1 = __importDefault(require("../models/investimentos.model"));
+const investimentos_model_1 = __importDefault(require("../../models/investimentos.model"));
+const connection_1 = __importDefault(require("../../models/connection"));
 const sinon_1 = __importDefault(require("sinon"));
 describe('Testa se a função createInvestiment', () => {
     before(() => {
-        const ExpectReturn = {
-            message: 'Operação realizada com sucesso'
-        };
-        sinon_1.default.stub(investimentos_model_1.default, 'createInvestiment').resolves(ExpectReturn);
+        const ExpectReturn = [{
+                message: 'Operação realizada com sucesso'
+            }];
+        sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        investimentos_model_1.default.createInvestiment.restore();
+        connection_1.default.execute.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém a mensagem "Operação realizada com sucesso"', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,18 +35,18 @@ describe('Testa se a função createInvestiment', () => {
 });
 describe('Testa se a função getInvestimentByClient', () => {
     before(() => {
-        const ExpectReturn = [
-            {
-                id: 1,
-                codCliente: 1,
-                codAtivo: 1,
-                qtdeAtivo: 100,
-            }
-        ];
-        sinon_1.default.stub(investimentos_model_1.default, 'getInvestimentByClient').resolves(ExpectReturn);
+        const ExpectReturn = [[
+                {
+                    id: 1,
+                    codCliente: 1,
+                    codAtivo: 1,
+                    qtdeAtivo: 100,
+                }
+            ]];
+        sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        investimentos_model_1.default.getInvestimentByClient.restore();
+        connection_1.default.execute.restore();
     });
     describe('retorna um array de objetos que:', () => {
         it('contém o id do investimento', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -68,18 +69,18 @@ describe('Testa se a função getInvestimentByClient', () => {
 });
 describe('Testa se a função getInvestimentByClientAndAsset', () => {
     before(() => {
-        const ExpectReturn = [
-            {
-                id: 1,
-                codCliente: 1,
-                codAtivo: 1,
-                qtdeAtivo: 100,
-            }
-        ];
-        sinon_1.default.stub(investimentos_model_1.default, 'getInvestimentByClientAndAsset').resolves(ExpectReturn);
+        const ExpectReturn = [[
+                {
+                    id: 1,
+                    codCliente: 1,
+                    codAtivo: 1,
+                    qtdeAtivo: 100,
+                }
+            ]];
+        sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        investimentos_model_1.default.getInvestimentByClientAndAsset.restore();
+        connection_1.default.execute.restore();
     });
     describe('retorna um array de objetos que:', () => {
         it('contém o id do investimento', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -102,13 +103,13 @@ describe('Testa se a função getInvestimentByClientAndAsset', () => {
 });
 describe('Testa se a função updateInvestiment', () => {
     before(() => {
-        const ExpectReturn = {
-            message: 'Operação realizada com sucesso'
-        };
-        sinon_1.default.stub(investimentos_model_1.default, 'updateInvestiment').resolves(ExpectReturn);
+        const ExpectReturn = [{
+                message: 'Operação realizada com sucesso'
+            }];
+        sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        investimentos_model_1.default.updateInvestiment.restore();
+        connection_1.default.execute.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém a mensagem "Operação realizada com sucesso"', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -119,13 +120,13 @@ describe('Testa se a função updateInvestiment', () => {
 });
 describe('Testa se a função deleteInvestiment', () => {
     before(() => {
-        const ExpectReturn = {
-            message: 'Operação realizada com sucesso'
-        };
-        sinon_1.default.stub(investimentos_model_1.default, 'deleteInvestiment').resolves(ExpectReturn);
+        const ExpectReturn = [{
+                message: 'Operação realizada com sucesso'
+            }];
+        sinon_1.default.stub(connection_1.default, 'execute').resolves(ExpectReturn);
     });
     after(() => {
-        investimentos_model_1.default.deleteInvestiment.restore();
+        connection_1.default.execute.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém a mensagem "Operação realizada com sucessoo"', () => __awaiter(void 0, void 0, void 0, function* () {

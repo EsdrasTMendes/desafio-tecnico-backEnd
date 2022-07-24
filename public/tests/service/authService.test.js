@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
-const authentication_service_1 = __importDefault(require("../service/authentication.service"));
+const authentication_service_1 = __importDefault(require("../../service/authentication.service"));
 const sinon_1 = __importDefault(require("sinon"));
-describe('Testa se a função createAssets', () => {
+describe('Testa se a função authentication', () => {
     before(() => {
         const ExpectReturn = {
             status: 200,

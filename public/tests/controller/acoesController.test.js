@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
-const acoes_controller_1 = __importDefault(require("../controller/acoes.controller"));
-const acoes_service_1 = __importDefault(require("../service/acoes.service"));
+const acoes_controller_1 = __importDefault(require("../../controller/acoes.controller"));
+const acoes_service_1 = __importDefault(require("../../service/acoes.service"));
 const sinon_1 = __importDefault(require("sinon"));
 describe('Testa se a função getAllStocks', () => {
     const acoes = [

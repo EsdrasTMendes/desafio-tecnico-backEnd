@@ -13,20 +13,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
-const clientes_service_1 = __importDefault(require("../service/clientes.service"));
+const clientes_service_1 = __importDefault(require("../../service/clientes.service"));
+const clientes_model_1 = __importDefault(require("../..//models/clientes.model"));
 const sinon_1 = __importDefault(require("sinon"));
 describe('Testa se a função getClientByCode', () => {
     before(() => {
-        const ExpectReturn = {
-            codCliente: 1,
-            nomeCliente: 'Usuario',
-            saldoConta: 100,
-            saldoCustodia: 10
-        };
-        sinon_1.default.stub(clientes_service_1.default, 'getClientByCode').resolves(ExpectReturn);
+        const ExpectReturn = [{
+                codCliente: 1,
+                nomeCliente: 'Usuario',
+                saldoConta: 100,
+                saldoCustodia: 10
+            }];
+        sinon_1.default.stub(clientes_model_1.default, 'getClientsByCode').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_service_1.default.getClientByCode.restore();
+        clientes_model_1.default.getClientsByCode.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém o código do cliente', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -56,10 +57,10 @@ describe('Testa se a função updateClientByCode', () => {
         const ExpectReturn = {
             message: 'Cliente atualizado com sucesso'
         };
-        sinon_1.default.stub(clientes_service_1.default, 'updateClientByCode').resolves(ExpectReturn);
+        sinon_1.default.stub(clientes_model_1.default, 'updateClientByCode').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_service_1.default.updateClientByCode.restore();
+        clientes_model_1.default.updateClientByCode.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém a mensagem "Cliente atualizado com sucesso"', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -78,10 +79,10 @@ describe('Testa se a função withdrawByCode', () => {
         const ExpectReturn = {
             message: 'Operação realizada com sucesso'
         };
-        sinon_1.default.stub(clientes_service_1.default, 'withdrawByCode').resolves(ExpectReturn);
+        sinon_1.default.stub(clientes_model_1.default, 'withdrawAndDepositByCode').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_service_1.default.withdrawByCode.restore();
+        clientes_model_1.default.withdrawAndDepositByCode.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém a mensagem "Operação realizada com sucesso"', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -99,10 +100,10 @@ describe('Testa se a função depositByCode', () => {
         const ExpectReturn = {
             message: 'Operação realizada com sucesso'
         };
-        sinon_1.default.stub(clientes_service_1.default, 'depositByCode').resolves(ExpectReturn);
+        sinon_1.default.stub(clientes_model_1.default, 'withdrawAndDepositByCode').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_service_1.default.depositByCode.restore();
+        clientes_model_1.default.withdrawAndDepositByCode.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém a mensagem "Operação realizada com sucesso"', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -155,18 +156,18 @@ describe('Testa se a função createClient', () => {
 });
 describe('Testa se a função getClientByEmailAndPassword', () => {
     before(() => {
-        const ExpectReturn = {
-            codCliente: 1,
-            nomeCliente: 'Usuario',
-            saldoConta: 100,
-            saldoCustodia: 0,
-            emailCliente: 'email@gmail.com',
-            passwordCliente: 'senhaexemple2',
-        };
-        sinon_1.default.stub(clientes_service_1.default, 'getClientByEmailAndPassword').resolves(ExpectReturn);
+        const ExpectReturn = [{
+                codCliente: 1,
+                nomeCliente: 'Usuario',
+                saldoConta: 100,
+                saldoCustodia: 0,
+                emailCliente: 'email@gmail.com',
+                passwordCliente: 'senhaexemple2',
+            }];
+        sinon_1.default.stub(clientes_model_1.default, 'getClientByEmailAndPassword').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_service_1.default.getClientByEmailAndPassword.restore();
+        clientes_model_1.default.getClientByEmailAndPassword.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém o código do cliente ', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -203,18 +204,18 @@ describe('Testa se a função getClientByEmailAndPassword', () => {
 });
 describe('Testa se a função getClientByEmail', () => {
     before(() => {
-        const ExpectReturn = {
-            codCliente: 1,
-            nomeCliente: 'Usuario',
-            saldoConta: 100,
-            saldoCustodia: 0,
-            emailCliente: 'email@gmail.com',
-            passwordCliente: 'senhaexemple2',
-        };
-        sinon_1.default.stub(clientes_service_1.default, 'getClientByEmail').resolves(ExpectReturn);
+        const ExpectReturn = [{
+                codCliente: 1,
+                nomeCliente: 'Usuario',
+                saldoConta: 100,
+                saldoCustodia: 0,
+                emailCliente: 'email@gmail.com',
+                passwordCliente: 'senhaexemple2',
+            }];
+        sinon_1.default.stub(clientes_model_1.default, 'getClientByEmail').resolves(ExpectReturn);
     });
     after(() => {
-        clientes_service_1.default.getClientByEmail.restore();
+        clientes_model_1.default.getClientByEmail.restore();
     });
     describe('retorna um objeto que:', () => {
         it('contém o código do cliente ', () => __awaiter(void 0, void 0, void 0, function* () {

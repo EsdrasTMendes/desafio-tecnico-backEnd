@@ -1,22 +1,23 @@
 import {expect} from 'chai';
-import model from '../models/acoes.model';
+import model from '../../models/acoes.model';
+import connection from '../../models/connection';
 import sinon from 'sinon';
 
 describe('Testa se a função getAllStocks', () => {
   before(() => {
-    const ExpectReturn = [
+    const executeReturn:any = [[
       {
         codAtivo: 1,
         codMercado: 'PETR4',
         valorAtivo: 29.33,
         qtdeDisponivel: 1000,
       }
-    ];
-    sinon.stub(model, 'getAllStocks').resolves(ExpectReturn);
+    ]];
+    sinon.stub(connection, 'execute').resolves(executeReturn);
   });
 
   after(() => {
-    (model.getAllStocks as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
     describe('retorne:', () => {
       it('um array de objetos', async () => {
@@ -50,19 +51,19 @@ describe('Testa se a função getAllStocks', () => {
 
 describe('Testa se a função getStockByCode', () => {
   before(() => {
-    const ExpectReturn = [
+    const ExpectReturn :any = [[
       {
         codAtivo: 1,
         codMercado: 'PETR4',
         valorAtivo: 29.33,
         qtdeDisponivel: 1000,
       }
-    ];
-    sinon.stub(model, 'getStockByCode').resolves(ExpectReturn);
+    ]];
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.getStockByCode as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
   describe('retorna array com um objeto que:', () => {
@@ -92,16 +93,18 @@ describe('Testa se a função getStockByCode', () => {
 
 describe('Testa se a função updateByCode', () => {
   before(() => {
-    const ExpectReturn = 
+    const ExpectReturn: any = [
       {
         message: 'Operação realizada com sucesso'
       }
+    ]
+
     ;
-    sinon.stub(model, 'updateByCode').resolves(ExpectReturn);
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.updateByCode as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
   describe('retorna um objeto que:', () => {
@@ -114,16 +117,17 @@ describe('Testa se a função updateByCode', () => {
 
 describe('Testa se a função createAssets', () => {
   before(() => {
-    const ExpectReturn = 
+    const ExpectReturn: any = [
       {
         message: 'Ativo adicionado com sucesso'
       }
+    ]
     ;
-    sinon.stub(model, 'createAssets').resolves(ExpectReturn);
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.createAssets as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
   describe('retorna um objeto que:', () => {

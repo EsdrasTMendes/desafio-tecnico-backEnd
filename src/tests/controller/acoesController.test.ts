@@ -1,6 +1,6 @@
 import {expect} from 'chai';
-import controller from '../controller/acoes.controller';
-import service from '../service/acoes.service';
+import controller from '../../controller/acoes.controller';
+import service from '../../service/acoes.service';
 import sinon from 'sinon';
 
 describe('Testa se a função getAllStocks', () => {

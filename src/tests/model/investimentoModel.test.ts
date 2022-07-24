@@ -1,19 +1,20 @@
 import {expect} from 'chai';
-import model from '../models/investimentos.model';
+import model from '../../models/investimentos.model';
+import connection from '../../models/connection';
 import sinon from 'sinon';
 
 describe('Testa se a função createInvestiment', () => {
   before(() => {
-    const ExpectReturn = 
-      {
+    const ExpectReturn: any = 
+      [{
         message: 'Operação realizada com sucesso'
-      }
+      }]
     ;
-    sinon.stub(model, 'createInvestiment').resolves(ExpectReturn);
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.createInvestiment as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
   describe('retorna um objeto que:', () => {
@@ -26,19 +27,19 @@ describe('Testa se a função createInvestiment', () => {
 
 describe('Testa se a função getInvestimentByClient', () => {
   before(() => {
-    const ExpectReturn = [
+    const ExpectReturn: any = [[
       {
         id: 1,
         codCliente: 1,
         codAtivo: 1,
         qtdeAtivo: 100,
       }
-    ]
-    sinon.stub(model, 'getInvestimentByClient').resolves(ExpectReturn);
+    ]]
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.getInvestimentByClient as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
   describe('retorna um array de objetos que:', () => {
@@ -63,19 +64,19 @@ describe('Testa se a função getInvestimentByClient', () => {
 
 describe('Testa se a função getInvestimentByClientAndAsset', () => {
   before(() => {
-    const ExpectReturn = [
+    const ExpectReturn:any = [[
       {
         id: 1,
         codCliente: 1,
         codAtivo: 1,
         qtdeAtivo: 100,
       }
-    ]
-    sinon.stub(model, 'getInvestimentByClientAndAsset').resolves(ExpectReturn);
+    ]]
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.getInvestimentByClientAndAsset as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
   describe('retorna um array de objetos que:', () => {
@@ -102,15 +103,15 @@ describe('Testa se a função getInvestimentByClientAndAsset', () => {
 
 describe('Testa se a função updateInvestiment', () => {
   before(() => {
-    const ExpectReturn = 
-    {
+    const ExpectReturn: any = 
+    [{
       message: 'Operação realizada com sucesso'
-    };
-    sinon.stub(model, 'updateInvestiment').resolves(ExpectReturn);
+    }];
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.updateInvestiment as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
   describe('retorna um objeto que:', () => {
@@ -125,15 +126,15 @@ describe('Testa se a função updateInvestiment', () => {
 
 describe('Testa se a função deleteInvestiment', () => {
   before(() => {
-    const ExpectReturn = 
-    {
+    const ExpectReturn:any = 
+    [{
       message: 'Operação realizada com sucesso'
-    };
-    sinon.stub(model, 'deleteInvestiment').resolves(ExpectReturn);
+    }];
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.deleteInvestiment as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
   describe('retorna um objeto que:', () => {

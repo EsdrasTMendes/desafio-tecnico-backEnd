@@ -1,20 +1,22 @@
 import {expect} from 'chai';
-import model from '../models/clientes.model';
+import model from '../../models/clientes.model';
+import connection from '../../models/connection';
 import sinon from 'sinon';
 
 describe('Testa se a função getClientsByCode', () => {
+  let executeSpy: any;
   before(() => {
-    const ExpectReturn = [{
+    const ExpectReturn: any= [[{
         codCliente: 1,
         nomeCliente: "Esdras Tenório Mendes",
         saldoConta: 100.00,
         saldoCustodia: 0.00
-      }];
-    sinon.stub(model, 'getClientsByCode').resolves(ExpectReturn);
+      }]];
+    executeSpy = sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.getClientsByCode as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
     describe('retorna um objeto que:', () => {
     it('contém o código do cliente', async () => {
@@ -45,14 +47,14 @@ describe('Testa se a função getClientsByCode', () => {
 
 describe('Testa se a função updateClientByCode', () => {
   before(() => {
-    const ExpectReturn = {
+    const ExpectReturn: any = [{
     message: 'Cliente atualizado com sucesso'
-    };
-    sinon.stub(model, 'updateClientByCode').resolves(ExpectReturn);
+    }];
+    sinon.stub(connection,'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.updateClientByCode as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
     it('retorna a mensagem "Cliente autualizado com sucesso"', async () => {
@@ -63,14 +65,14 @@ describe('Testa se a função updateClientByCode', () => {
 
 describe('Testa se a função withdrawAndDepositByCode', () => {
   before(() => {
-    const ExpectReturn = {
+    const ExpectReturn: any = [{
     message: 'Operação realizada com sucesso'
-    };
-    sinon.stub(model, 'withdrawAndDepositByCode').resolves(ExpectReturn);
+    }];
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.withdrawAndDepositByCode as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
     it('retorna a mensagem "Operação realizada com sucesso"', async () => {
@@ -81,14 +83,14 @@ describe('Testa se a função withdrawAndDepositByCode', () => {
 
 describe('Testa se a função createClient', () => {
   before(() => {
-    const ExpectReturn = {
+    const ExpectReturn: any = [{
     message: 'Cadastro criado com sucesso.'
-    };
-    sinon.stub(model, 'createClient').resolves(ExpectReturn);
+    }];
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.createClient as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
     it('retorna a mensagem "Cadastro criado com sucesso" ', async () => {
@@ -99,19 +101,19 @@ describe('Testa se a função createClient', () => {
 
 describe('Testa se a função getClientByEmailAndPassword', () => {
   before(() => {
-    const ExpectReturn = [{
+    const ExpectReturn: any = [[{
       codCliente: 1,
       nomeCliente: 'Esdras Tenório Mendes',
       saldoConta: 10,
       saldoCustodia: 0,
       emailCliente: 'esdrastmendes@gmail.com',
       passwordCliente: '123456789',
-    }];
-    sinon.stub(model, 'getClientByEmailAndPassword').resolves(ExpectReturn);
+    }]];
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.getClientByEmailAndPassword as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
     describe('retorna um objeto que:', () => {
@@ -155,19 +157,19 @@ describe('Testa se a função getClientByEmailAndPassword', () => {
 
 describe('Testa se a função getClientByEmail', () => {
   before(() => {
-    const ExpectReturn = [{
+    const ExpectReturn: any = [[{
       codCliente: 1,
       nomeCliente: 'Esdras Tenório Mendes',
       saldoConta: 10,
       saldoCustodia: 0,
       emailCliente: 'esdrastmendes@gmail.com',
       passwordCliente: '123456789',
-    }];
-    sinon.stub(model, 'getClientByEmail').resolves(ExpectReturn);
+    }]];
+    sinon.stub(connection, 'execute').resolves(ExpectReturn);
   });
 
   after(() => {
-    (model.getClientByEmail as sinon.SinonStub).restore();
+    (connection.execute as sinon.SinonStub).restore();
   });
 
   describe('retorna um objeto que:', () => {

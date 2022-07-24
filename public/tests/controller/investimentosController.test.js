@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
-const investimentos_controller_1 = __importDefault(require("../controller/investimentos.controller"));
-const investimentos_service_1 = __importDefault(require("../service/investimentos.service"));
+const investimentos_controller_1 = __importDefault(require("../../controller/investimentos.controller"));
+const investimentos_service_1 = __importDefault(require("../../service/investimentos.service"));
 const sinon_1 = __importDefault(require("sinon"));
 describe('Testa se a função createInvestiment', () => {
     const mockresult = {

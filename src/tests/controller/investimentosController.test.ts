@@ -1,6 +1,6 @@
 import {expect} from 'chai';
-import controller from '../controller/investimentos.controller';
-import service from '../service/investimentos.service';
+import controller from '../../controller/investimentos.controller';
+import service from '../../service/investimentos.service';
 import sinon from 'sinon';
 
 

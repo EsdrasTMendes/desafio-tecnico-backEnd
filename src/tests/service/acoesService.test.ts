@@ -1,5 +1,6 @@
 import {expect} from 'chai';
-import service from '../service/acoes.service';
+import service from '../../service/acoes.service';
+import model from '../../models/acoes.model'
 import sinon from 'sinon';
 
 
@@ -13,11 +14,11 @@ import sinon from 'sinon';
           qtdeDisponivel: 1000,
         }
       ];
-      sinon.stub(service, 'getAllStocks').resolves(ExpectReturn);
+      sinon.stub(model, 'getAllStocks').resolves(ExpectReturn);
     });
   
     after(() => {
-      (service.getAllStocks as sinon.SinonStub).restore();
+      (model.getAllStocks as sinon.SinonStub).restore();
     });
       describe('retorne:', () => {
         it('um array de objetos', async () => {
@@ -52,18 +53,18 @@ import sinon from 'sinon';
 
   describe('Testa se a função getStockByCode', () => {
     before(() => {
-      const ExpectReturn =
+      const ExpectReturn =[
         {
           codAtivo: 1,
           codMercado: 'PETR4',
           valorAtivo: 29.33,
           qtdeDisponivel: 1000,
-        };
-      sinon.stub(service, 'getStockByCode').resolves(ExpectReturn);
+        }];
+      sinon.stub(model, 'getStockByCode').resolves(ExpectReturn);
     });
   
     after(() => {
-      (service.getStockByCode as sinon.SinonStub).restore();
+      (model.getStockByCode as sinon.SinonStub).restore();
     });
   
     describe('retorna um objeto que:', () => {
@@ -97,11 +98,11 @@ import sinon from 'sinon';
           message: 'Operação realizada com sucesso'
         }
       ;
-      sinon.stub(service, 'updateByCode').resolves(ExpectReturn);
+      sinon.stub(model, 'updateByCode').resolves(ExpectReturn);
     });
   
     after(() => {
-      (service.updateByCode as sinon.SinonStub).restore();
+      (model.updateByCode as sinon.SinonStub).restore();
     });
   
     describe('retorna um objeto que:', () => {
@@ -117,14 +118,13 @@ import sinon from 'sinon';
     before(() => {
       const ExpectReturn = 
         {
-          status: 200,
-          response: 'Ativo criado com sucesso!'
+          message: 'Ativo criado com sucesso!'
         };
-      sinon.stub(service, 'createAssets').resolves(ExpectReturn);
+      sinon.stub(model, 'createAssets').resolves(ExpectReturn);
     });
   
     after(() => {
-      (service.createAssets as sinon.SinonStub).restore();
+      (model.createAssets as sinon.SinonStub).restore();
     });
   
     describe('retorna um objeto que:', () => {
