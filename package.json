@@ -6,8 +6,7 @@
   "scripts": {
     "start": "tsc && node public/app.js",
     "test": "mocha public/tests/**/*.test.js --exit",
-    "dev": "tsc && nodemon public/app.js",
-    "build": "tsc --watch",
+    "build": "ts-node src/app.ts",
     "test:coverage": "nyc mocha public/tests/**/*.test.js --exit"
   },
   "repository": {

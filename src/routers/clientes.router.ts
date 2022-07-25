@@ -11,7 +11,7 @@ import tokenMiddleware from "../middlewares/token.middleware";
 
 
 const routers = Router();
-routers.post('/clientes', createClientMiddleware, controller.createClient, middlewareDeErro);
+routers.post('/cadastro', createClientMiddleware, controller.createClient, middlewareDeErro);
 routers.post('/login', authMiddleware, authentication, middlewareDeErro);
 
 routers.get('/conta/:codCliente', tokenMiddleware, contaMiddleware, controller.getClientByCode, middlewareDeErro);

@@ -20,7 +20,7 @@ const createClientMiddleware = (req, _res, next) => __awaiter(void 0, void 0, vo
     if (clientExist) {
         next({
             status: 400,
-            response: 'email ou cliente já cadastrados'
+            response: 'email já possui cadastro'
         });
     }
     if (error === null || error === void 0 ? void 0 : error.details[0].message.includes('nomeCliente')) {
